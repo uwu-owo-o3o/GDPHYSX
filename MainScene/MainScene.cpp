@@ -2,7 +2,7 @@
 
 using namespace scene;
 
-MainScene::MainScene() {
+MainScene::MainScene() : COrthoCam() {
 	this->intialize();
 }
 
@@ -42,5 +42,8 @@ void MainScene::update() {
 }
 
 void MainScene::render() {
+	
 	this->vecModels[0]->draw("Sphere");
+	this->COrthoCam.draw("Sphere");
+
 }

@@ -4,7 +4,7 @@ using namespace transform;
 
 Transform::Transform() {
 	this->mTranslation = glm::vec3(0.0f, 0.0f, 0.0f);
-	this->mScale = glm::vec3(0.15f, 0.15f, 0.15f);
+	this->mScale = glm::vec3(1.0f, 1.0f, 1.0f);
 	this->mRotation = glm::vec3(0.0f, 1.0f, 0.0f);
 	this->fRotationTheta = 90.0f;
 	this->mTransformMatrix = glm::mat4(1.0f);

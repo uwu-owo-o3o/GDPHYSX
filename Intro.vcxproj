@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera\Camera.cpp" />
+    <ClCompile Include="Camera\OrthoCam\OrthoCam.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene\MainScene.cpp" />
@@ -148,6 +150,8 @@
     <ClCompile Include="Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera\Camera.hpp" />
+    <ClInclude Include="Camera\OrthoCam\OrthoCam.hpp" />
     <ClInclude Include="MainScene\MainScene.hpp" />
     <ClInclude Include="Model3D\Model3D.hpp" />
     <ClInclude Include="Model3D\ObjData\ObjData.hpp" />
