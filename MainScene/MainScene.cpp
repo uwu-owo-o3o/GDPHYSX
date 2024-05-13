@@ -7,10 +7,12 @@ MainScene::MainScene() : COrthoCam() {
 }
 
 void MainScene::run() {
+	Vector CVector = Vector(0.1f, 0.2f, 0.2f);
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		this->update();
+		this->vecModels[0]->getTransform()->setAtt(TransformAtt::TRANSLATE, CVector.getVector());
 		this->render();
 
 		glfwSwapBuffers(this->pWindow);

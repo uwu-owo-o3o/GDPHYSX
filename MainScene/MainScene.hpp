@@ -10,12 +10,13 @@
 #include "iostream"
 
 #include "../Model3D/Model3D.hpp"
-
+#include "../Physics/Component/Vector.hpp"
 #include "../Camera/OrthoCam/OrthoCam.hpp"
 
 namespace scene {
 	using namespace model;
 	using namespace camera;
+	using namespace component;
 	class MainScene {
 		private:
 			GLFWwindow* pWindow;
