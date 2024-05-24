@@ -6,6 +6,7 @@ Vector::Vector(float x, float y, float z) {
 	this->x = x;
 	this->y = y;
 	this->z = z;
+	this->mCoordinates = glm::vec3(x, y, z);
 	this->calculateMagnitude();
 }
 
@@ -84,6 +85,13 @@ void Vector::setZ(float z) {
 	this->z = z;
 }
 
-glm::vec3 Vector::getVector() {
-	return glm::vec3(this->x, this->y, this->z);
+void Vector::setCoordinates(glm::vec3 mCoordinates) {
+	this->mCoordinates = mCoordinates;
+	this->x = mCoordinates.x;
+	this->y = mCoordinates.y;
+	this->z = mCoordinates.z;
+}
+
+glm::vec3 Vector::getCoordinates() {
+	return this->mCoordinates;
 }

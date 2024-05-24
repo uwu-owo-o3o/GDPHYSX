@@ -7,6 +7,7 @@ namespace component {
 	class Vector {
 		private:
 			float x, y, z;
+			glm::vec3 mCoordinates;
 			float fMagnitude;
 			glm::vec3 mDirection;
 
@@ -31,7 +32,8 @@ namespace component {
 			void setX(float x);
 			void setY(float y);
 			void setZ(float z);
-			glm::vec3 getVector();
+			void setCoordinates(glm::vec3 mCoordinates);
+			glm::vec3 getCoordinates();
 			
 
 	};

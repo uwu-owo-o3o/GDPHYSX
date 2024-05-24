@@ -13,15 +13,20 @@
 #include "../Physics/Component/Vector.hpp"
 #include "../Camera/OrthoCam/OrthoCam.hpp"
 
+#include "chrono"
+#include "../Physics/Component/Particle/Particle.hpp"
+
 namespace scene {
 	using namespace model;
 	using namespace camera;
 	using namespace component;
+	using namespace std::chrono_literals;
 	class MainScene {
 		private:
 			GLFWwindow* pWindow;
 			std::vector<Model3D*> vecModels;
 			OrthoCam COrthoCam;
+			
 		public:
 			MainScene();
 		public:
