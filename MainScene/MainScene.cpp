@@ -17,7 +17,7 @@ void MainScene::run() {
 	std::chrono::nanoseconds curr_ns(0);
 
 	Particle CParticle = Particle();
-	CParticle.setVelocity(Vector(0.005f, 0.0f, 0.0f));
+	CParticle.setVelocity(Vector(0.003f, 0.0f, 0.0f));
 
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
