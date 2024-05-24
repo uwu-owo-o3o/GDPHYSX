@@ -8,7 +8,7 @@ MainScene::MainScene() : COrthoCam() {
 
 void MainScene::run() {
 	std::cout << "called run" << std::endl;
-	Vector CVector = Vector(0.1f, 0.2f, 0.2f);
+	Vector CVector = Vector(0.0f, 0.0f, 0.0f);
 
 	constexpr std::chrono::nanoseconds time_step(16ms);
 	using clock = std::chrono::high_resolution_clock;
@@ -18,7 +18,7 @@ void MainScene::run() {
 
 	Particle CParticle = Particle();
 	CParticle.setVelocity(Vector(0.003f, 0.0f, 0.0f));
-
+	CParticle.setAcceleration(Vector(-0.5f, 0.0f, 0.0f));
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

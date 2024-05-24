@@ -15,6 +15,7 @@ namespace component {
 			Particle();
 		public:
 			void UpdatePosition(float time);
+			void UpdateVelocity(float time);
 			void Update(float time);
 		public:
 			Vector getPosition();

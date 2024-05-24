@@ -7,7 +7,15 @@ Particle::Particle() : CPosition(0.0f, 0.0f, 0.0f), CVelocity(0.0f, 0.0f, 0.0f),
 }
 
 void Particle::UpdatePosition(float time) {
-	this->CPosition.setCoordinates(this->CPosition.add(this->CVelocity) * time);
+	//this->CPosition.setCoordinates(this->CPosition.add(this->CVelocity) * time);
+	glm::vec3 mUpdatedPosition = this->CPosition.getCoordinates() + (this->CVelocity.getCoordinates() * time) + (1.0f / 2.0f) * (this->CAcceleration.getCoordinates() * time * time);
+	this->CPosition.setCoordinates(mUpdatedPosition);
+	
+}
+
+void Particle::UpdateVelocity(float time) {
+	this->CAcceleration.setCoordinates(this->CAcceleration.getCoordinates() * time);
+	this->CVelocity.setCoordinates(this->CVelocity.add(this->CAcceleration));
 }
 
 void Particle::Update(float time) {
