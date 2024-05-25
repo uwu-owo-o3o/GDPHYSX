@@ -18,11 +18,11 @@ namespace component {
 			void UpdateVelocity(float time);
 			void Update(float time);
 		public:
-			Vector getPosition();
+			Vector* getPosition();
 			void setPosition(Vector CVector);
-			Vector getVelocity();
+			Vector* getVelocity();
 			void setVelocity(Vector CVector);
-			Vector getAcceleration();
+			Vector* getAcceleration();
 			void setAcceleration(Vector CVector);
 	};
 }

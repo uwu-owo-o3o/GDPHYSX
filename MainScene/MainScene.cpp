@@ -7,9 +7,7 @@ MainScene::MainScene() : COrthoCam() {
 }
 
 void MainScene::run() {
-	std::cout << "called run" << std::endl;
-	Vector CVector = Vector(0.0f, 0.0f, 0.0f);
-
+	
 	constexpr std::chrono::nanoseconds time_step(16ms);
 	using clock = std::chrono::high_resolution_clock;
 	auto curr_time = clock::now();
@@ -17,8 +15,9 @@ void MainScene::run() {
 	std::chrono::nanoseconds curr_ns(0);
 
 	Particle CParticle = Particle();
-	CParticle.setVelocity(Vector(0.003f, 0.0f, 0.0f));
-	CParticle.setAcceleration(Vector(-0.5f, 0.0f, 0.0f));
+	//InputManager::getInstance()->askUserVelocity(CParticle.getVelocity());
+	CParticle.setVelocity(Vector(1.0f/100.0f, 0.0f, 0.0f));
+	CParticle.setAcceleration(Vector(1.0f/-30.0f, 0.0f, 0.0f));
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -36,9 +35,8 @@ void MainScene::run() {
 		}
 
 		//std::cout << "Normal Update" << std::endl;
-
-		this->vecModels[0]->getTransform()->setAtt(TransformAtt::TRANSLATE, this->vecModels[0]->getTransform()->getAtt(TransformAtt::TRANSLATE) + CParticle.getPosition().getCoordinates());
 		this->update();
+		this->vecModels[0]->getTransform()->setAtt(TransformAtt::TRANSLATE, CParticle.getPosition()->getCoordinates());
 		this->render();
 
 		glfwSwapBuffers(this->pWindow);
@@ -62,11 +60,14 @@ void MainScene::intialize() {
 
 void MainScene::createSphere() {
 	Model3D* pSphere = new Model3D("3D/sphere.obj");
+	pSphere->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
 	this->vecModels.push_back(pSphere);
+	
 }
 
 void MainScene::update() {
 	this->vecModels[0]->getTransform()->calculateTransformMatrix();
+
 }
 
 void MainScene::render() {

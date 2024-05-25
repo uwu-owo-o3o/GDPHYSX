@@ -20,26 +20,27 @@ void Particle::UpdateVelocity(float time) {
 
 void Particle::Update(float time) {
 	this->UpdatePosition(time);
+	this->UpdateVelocity(time);
 }
 
-Vector Particle::getPosition() {
-	return this->CPosition;
+Vector* Particle::getPosition() {
+	return &this->CPosition;
 }
 
 void Particle::setPosition(Vector CVector) {
 	this->CPosition = CVector;
 }
 
-Vector Particle::getVelocity() {
-	return this->CVelocity;
+Vector* Particle::getVelocity() {
+	return &this->CVelocity;
 }
 
 void Particle::setVelocity(Vector CVector) {
 	this->CVelocity = CVector;
 }
 
-Vector Particle::getAcceleration() {
-	return this->CAcceleration;
+Vector* Particle::getAcceleration() {
+	return &this->CAcceleration;
 }
 
 void Particle::setAcceleration(Vector CVector) {
