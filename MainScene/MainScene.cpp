@@ -16,8 +16,9 @@ void MainScene::run() {
 
 	Particle CParticle = Particle();
 	//InputManager::getInstance()->askUserVelocity(CParticle.getVelocity());
-	CParticle.setVelocity(Vector(1.0f/100.0f, 0.0f, 0.0f));
-	CParticle.setAcceleration(Vector(1.0f/-30.0f, 0.0f, 0.0f));
+	CParticle.setPosition(Vector(0.0f, 0.0f, 0.0f));
+	CParticle.setVelocity(Vector(0.0f, 0.5f, 0.0f));
+	CParticle.setAcceleration(Vector(0.0f, 0.5f, 0.0f));
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
