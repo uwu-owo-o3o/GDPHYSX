@@ -13,7 +13,9 @@ OrthoCam::OrthoCam() : Camera() {
 
 void OrthoCam::draw(std::string strKey) {
 	this->mViewMatrix = glm::lookAt(this->mCameraPos, this->mCameraPos + this->mCameraFront, this->mCameraUp);
-	this->mProjectionMatrix = glm::ortho(this->fLeft, this->fRight, this->fBottom, this->fTop, this->fNear, this->fFar);
+	this->mProjectionMatrix = glm::ortho(0.0f, SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT, -1.0f, 100.0f);
+	//glOrtho(0.0f, SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f, 0.0f, 1.0f);
+	//glm::ortho(this->fLeft, this->fRight, this->fBottom, this->fTop, this->fNear, this->fFar);
 	auto modelShader = ShaderManager::getInstance()->getShader(strKey);
 
 	unsigned int projectionLoc = glGetUniformLocation(*modelShader, "projection");

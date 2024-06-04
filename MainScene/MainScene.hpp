@@ -16,18 +16,23 @@
 #include "chrono"
 #include "../Physics/Component/Particle/Particle.hpp"
 #include "../InputManager/InputManager.hpp"
+#include "../Config/Settings.hpp"
+#include "../../Controller/SimController/SimController.hpp"
+
 namespace scene {
 	using namespace model;
 	using namespace camera;
 	using namespace component;
 	using namespace input;
+	using namespace controller;
 	using namespace std::chrono_literals;
 	class MainScene {
 		private:
 			GLFWwindow* pWindow;
 			std::vector<Model3D*> vecModels;
 			OrthoCam COrthoCam;
-			
+			Particle CParticle;
+			SimController CSimController;
 		public:
 			MainScene();
 		public:

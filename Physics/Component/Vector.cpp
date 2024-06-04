@@ -6,8 +6,9 @@ Vector::Vector(float x, float y, float z) {
 	this->x = x;
 	this->y = y;
 	this->z = z;
+	this->fMagnitude = 0.0f;
 	this->mCoordinates = glm::vec3(x, y, z);
-	this->calculateMagnitude();
+	//this->calculateMagnitude();
 }
 
 void Vector::calculateMagnitude() {

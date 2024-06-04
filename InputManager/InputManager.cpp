@@ -10,7 +10,7 @@ InputManager::~InputManager() {
   
 }
 
-void InputManager::askUserVelocity(Vector* pVector) {
+void InputManager::askUserVelocity(Particle* pParticle) {
     float x;
     float y;
     float z;
@@ -18,19 +18,14 @@ void InputManager::askUserVelocity(Vector* pVector) {
     std::cout << "Velocity: " << std::endl;
     std::cout << "X: ";
     std::cin >> x;
-    std::cout << std::endl;
-
 
     std::cout << "Y: ";
     std::cin >> y;
-    std::cout << std::endl;
-
 
     std::cout << "Z: ";
     std::cin >> z;
-    std::cout << std::endl;
 
-    pVector->setCoordinates(glm::vec3(x, y, z));
+    pParticle->setVelocity(Vector(x, y, z));
     
 }
 

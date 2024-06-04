@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../../Config/Settings.hpp"
 #include "../Camera.hpp"
 #include "../../Shaders/ShaderManager/ShaderManager.hpp"
 #include "string"
+
 
 namespace camera {
 	using namespace shader;

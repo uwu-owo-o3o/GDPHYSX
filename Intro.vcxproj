@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Camera\Camera.cpp" />
     <ClCompile Include="Camera\OrthoCam\OrthoCam.cpp" />
+    <ClCompile Include="Controller\SimController\SimController.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="InputManager\InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -149,18 +150,22 @@
     <ClCompile Include="Model3D\ObjData\ObjData.cpp" />
     <ClCompile Include="Physics\Component\Particle\Particle.cpp" />
     <ClCompile Include="Physics\Component\Vector.cpp" />
+    <ClCompile Include="Physics\Component\Vector3.cpp" />
     <ClCompile Include="Shaders\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera\Camera.hpp" />
     <ClInclude Include="Camera\OrthoCam\OrthoCam.hpp" />
+    <ClInclude Include="Config\Settings.hpp" />
+    <ClInclude Include="Controller\SimController\SimController.hpp" />
     <ClInclude Include="InputManager\InputManager.hpp" />
     <ClInclude Include="MainScene\MainScene.hpp" />
     <ClInclude Include="Model3D\Model3D.hpp" />
     <ClInclude Include="Model3D\ObjData\ObjData.hpp" />
     <ClInclude Include="Physics\Component\Particle\Particle.hpp" />
     <ClInclude Include="Physics\Component\Vector.hpp" />
+    <ClInclude Include="Physics\Component\Vector3.hpp" />
     <ClInclude Include="Shaders\ShaderManager\ShaderManager.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="tiny_obj_loader.h" />
