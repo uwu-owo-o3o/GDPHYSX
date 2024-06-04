@@ -2,41 +2,15 @@
 
 using namespace controller;
 
-SimController::SimController() {
-	this->fTopThreshold = 350.0f;
-	this->fBottomThreshold = -350.0f;
-	this->fDuration = 0.0f;
-	this->bEndSim = false;
-}
+SimController::SimController() {}
 
-bool SimController::checkHitTop(Particle* pParticle) {
-	float y = pParticle->getPosition()->getY();
-	if (y > this->fTopThreshold) {
-		return true;
-	}
-	return false;
-}
+glm::vec3 SimController::deriveVelocity(Particle* pParticle, float fVelocityMagnitude) {
 
-bool SimController::checkHitBottom(Particle* pParticle) {
-	float y = pParticle->getPosition()->getY();
-	if (y <= this->fBottomThreshold) {
-		return true;
-	}
-	return false;
-}
-
-void SimController::invertVelocity(Particle* pParticle, float fTime) {
+	pParticle->getPosition()->calculateMagnitude();
+	pParticle->getPosition()->calculateDirection();
+	glm::vec3 normalizedPosition = pParticle->getPosition()->getDirection();
+	glm::vec3 velocity = glm::vec3(normalizedPosition.x * -1, normalizedPosition.y * -1, normalizedPosition.z * -1);
+	return velocity;
 	
-	if (!this->checkHitBottom(pParticle)) {
-		this->fDuration += fTime;
-	}
-	else {
-		if (this->fDuration > 0.0f) {
-			std::cout << "It took " << this->fDuration << " seconds for it to land." << std::endl;
-			this->bEndSim = true;
-	
-		}
-	}
-	
-}
+}	
 

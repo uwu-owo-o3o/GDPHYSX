@@ -13,6 +13,7 @@ namespace component {
 
 		public:
 			Vector(float x, float y, float z);
+			Vector();
 		public:
 			void calculateMagnitude();
 			void calculateDirection();
@@ -34,6 +35,8 @@ namespace component {
 			void setZ(float z);
 			void setCoordinates(glm::vec3 mCoordinates);
 			glm::vec3 getCoordinates();
+			float getMagnitude();
+			glm::vec3 getDirection();
 			
 
 	};

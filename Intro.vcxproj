@@ -149,8 +149,10 @@
     <ClCompile Include="Model3D\Model3D.cpp" />
     <ClCompile Include="Model3D\ObjData\ObjData.cpp" />
     <ClCompile Include="Physics\Component\Particle\Particle.cpp" />
+    <ClCompile Include="Physics\Component\Particle\RenderParticle.cpp" />
     <ClCompile Include="Physics\Component\Vector.cpp" />
     <ClCompile Include="Physics\Component\Vector3.cpp" />
+    <ClCompile Include="Physics\PhysicsWorld.cpp" />
     <ClCompile Include="Shaders\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Transform\Transform.cpp" />
   </ItemGroup>
@@ -164,8 +166,10 @@
     <ClInclude Include="Model3D\Model3D.hpp" />
     <ClInclude Include="Model3D\ObjData\ObjData.hpp" />
     <ClInclude Include="Physics\Component\Particle\Particle.hpp" />
+    <ClInclude Include="Physics\Component\Particle\RenderParticle.hpp" />
     <ClInclude Include="Physics\Component\Vector.hpp" />
     <ClInclude Include="Physics\Component\Vector3.hpp" />
+    <ClInclude Include="Physics\PhysicsWorld.hpp" />
     <ClInclude Include="Shaders\ShaderManager\ShaderManager.hpp" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="tiny_obj_loader.h" />

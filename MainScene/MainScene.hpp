@@ -18,6 +18,8 @@
 #include "../InputManager/InputManager.hpp"
 #include "../Config/Settings.hpp"
 #include "../../Controller/SimController/SimController.hpp"
+#include "../Physics/PhysicsWorld.hpp"
+#include "../Physics/Component/Particle/RenderParticle.hpp"
 
 namespace scene {
 	using namespace model;
@@ -25,14 +27,21 @@ namespace scene {
 	using namespace component;
 	using namespace input;
 	using namespace controller;
+	using namespace world;
 	using namespace std::chrono_literals;
 	class MainScene {
 		private:
 			GLFWwindow* pWindow;
 			std::vector<Model3D*> vecModels;
 			OrthoCam COrthoCam;
-			Particle CParticle;
+			Particle CTopLeftParticle;
+			Particle CBottomRightParticle;
+			Particle CTopRightParticle;
+			Particle CBottomLeftParticle;
 			SimController CSimController;
+			PhysicsWorld CWorld;
+			std::list<RenderParticle*> lRenderParticles;
+
 		public:
 			MainScene();
 		public:

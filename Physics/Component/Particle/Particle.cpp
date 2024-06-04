@@ -31,6 +31,14 @@ void Particle::Update(float time) {
 	this->UpdateVelocity(time);
 }
 
+void Particle::Destroy() {
+	this->isDestroyed = true;
+}
+
+bool Particle::checkIfDestroyed() {
+	return this->isDestroyed;
+}
+
 Vector* Particle::getPosition() {
 	return &this->CPosition;
 }

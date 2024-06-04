@@ -8,19 +8,12 @@
 namespace controller {
 	using namespace component;
 	class SimController {
-		private:
-			float fTopThreshold;
-			float fBottomThreshold;
-			float fDuration;
 		public:
-			bool bEndSim;
+			
 		public:
 			SimController();
-		private:
-			bool checkHitTop(Particle* pParticle);
-			bool checkHitBottom(Particle* pParticle);
 		public:
-			void invertVelocity(Particle* pParticle, float fTime);
+			glm::vec3 deriveVelocity(Particle* pParticle, float fMagnitude);
 
 	};
 }

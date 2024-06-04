@@ -11,12 +11,15 @@ namespace component {
 			Vector CPosition;
 			Vector CVelocity;
 			Vector CAcceleration;
+			bool isDestroyed;
 		public:
 			Particle();
 		public:
 			void UpdatePosition(float time);
 			void UpdateVelocity(float time);
 			void Update(float time);
+			void Destroy();
+			bool checkIfDestroyed();
 		public:
 			Vector* getPosition();
 			void setPosition(Vector CVector);

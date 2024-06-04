@@ -11,6 +11,14 @@ Vector::Vector(float x, float y, float z) {
 	//this->calculateMagnitude();
 }
 
+Vector::Vector() {
+	this->x = 0;
+	this->y = 0;
+	this->z = 0;
+	this->fMagnitude = 0;
+	this->mCoordinates = glm::vec3(x, y, z);
+}
+
 void Vector::calculateMagnitude() {
 	this->fMagnitude = sqrt(pow(this->x, 2) + pow(y, 2) + pow(z, 2));
 }
@@ -95,4 +103,12 @@ void Vector::setCoordinates(glm::vec3 mCoordinates) {
 
 glm::vec3 Vector::getCoordinates() {
 	return this->mCoordinates;
+}
+
+float Vector::getMagnitude() {
+	return this->fMagnitude;
+}
+
+glm::vec3 Vector::getDirection() {
+	return this->mDirection;
 }
