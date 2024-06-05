@@ -3,6 +3,7 @@
 #include "../Vector.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "iostream"
 
 namespace component {
 	class Particle {
@@ -12,6 +13,10 @@ namespace component {
 			Vector CVelocity;
 			Vector CAcceleration;
 			bool isDestroyed;
+		public:
+			std::string name;
+			float time;
+			float magnitudeVelocity;
 		public:
 			Particle();
 		public:

@@ -4,6 +4,10 @@ using namespace component;
 
 Particle::Particle() : CPosition(0.0f, 0.0f, 0.0f), CVelocity(0.0f, 0.0f, 0.0f), CAcceleration(0.002f, 0.0f, 0.0f) {
 	this->mass = 0;
+	this->name = "ball";
+	this->isDestroyed = false;
+	this->time = 0.0f;
+	this->magnitudeVelocity = 0.0f;
 }
 
 void Particle::UpdatePosition(float time) {
@@ -33,6 +37,7 @@ void Particle::Update(float time) {
 
 void Particle::Destroy() {
 	this->isDestroyed = true;
+	//std::cout << "called destroy!" << std::endl;
 }
 
 bool Particle::checkIfDestroyed() {
