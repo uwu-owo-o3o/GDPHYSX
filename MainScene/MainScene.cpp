@@ -76,21 +76,20 @@ void MainScene::run() {
 			curr_ns -= curr_ns;
 			//std::cout << "P6 Update" << std::endl;
 			this->CWorld.Update((float)ms.count() / 1000);
+			if (!this->CTopLeftParticle.checkIfDestroyed()) {
+				this->CTopLeftParticle.time += (float)ms.count() / 1000;
+			}
+			if (!this->CTopRightParticle.checkIfDestroyed()) {
+				this->CTopRightParticle.time += (float)ms.count() / 1000;
+			}
+			if (!this->CBottomLeftParticle.checkIfDestroyed()) {
+				this->CBottomLeftParticle.time += (float)ms.count() / 1000;
+			}
+			if (!this->CBottomRightParticle.checkIfDestroyed()) {
+				this->CBottomRightParticle.time += (float)ms.count() / 1000;
+			}
 		}
 
-
-		if (!this->CTopLeftParticle.checkIfDestroyed()) {
-			this->CTopLeftParticle.time = ticks;
-		}
-		if (!this->CTopRightParticle.checkIfDestroyed()) {
-			this->CTopRightParticle.time = ticks;
-		}
-		if (!this->CBottomLeftParticle.checkIfDestroyed()) {
-			this->CBottomLeftParticle.time = ticks;
-		}
-		if (!this->CBottomRightParticle.checkIfDestroyed()) {
-			this->CBottomRightParticle.time = ticks;
-		}
 
 		if (this->CSimController.AtCenter(&this->CTopLeftParticle)) {
 			this->CTopLeftParticle.Destroy();
