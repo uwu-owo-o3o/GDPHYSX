@@ -14,12 +14,11 @@ void MainScene::run() {
 	auto prev_time = curr_time;
 	std::chrono::nanoseconds curr_ns(0);
 	
-	this->CTopLeftParticle.setPosition(Vector(-300.0f, 300.0f, 201.0f));
-	
-	glm::vec3 velocity = this->CSimController.deriveVelocity(&this->CTopLeftParticle, 80.0f);
-	this->CTopLeftParticle.setVelocity(Vector(velocity.x, velocity.y, velocity.z));
-	glm::vec3 acceleration = this->CSimController.deriveVelocity(&this->CTopLeftParticle, 14.5);
-	this->CTopLeftParticle.setAcceleration(Vector(acceleration.x, acceleration.y, acceleration.z));
+	this->CTopLeftParticle.setPosition(Vector(-100.0f, 0.0f, 0.0f));
+
+	this->CTopLeftParticle.setVelocity(Vector(80.0f, 0.0f, 0.0f));
+	/*glm::vec3 acceleration = this->CSimController.deriveVelocity(&this->CTopLeftParticle, 14.5);
+	this->CTopLeftParticle.setAcceleration(Vector(acceleration.x, acceleration.y, acceleration.z));*/
 	
 	this->CBottomRightParticle.setPosition(Vector(300.0f, -300.0f, -300.0f));
 
@@ -61,8 +60,16 @@ void MainScene::run() {
 
 	bool bEndSim = false;
 	float ticks = 0.0f;
+	
+	CTopLeftParticle.mass = 1.0f;
+	//CTopLeftParticle.AddForce(Vector(6000, 3000, 3000));
+
+	CTopLeftParticle.AddForce(Vector(6000.0f, 0.0f, 0.0f));
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
+
+		
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		ticks += 0.0001f;
 		curr_time = clock::now();
@@ -91,7 +98,7 @@ void MainScene::run() {
 		}
 
 
-		if (this->CSimController.AtCenter(&this->CTopLeftParticle)) {
+		/*if (this->CSimController.AtCenter(&this->CTopLeftParticle)) {
 			this->CTopLeftParticle.Destroy();
 		}
 		if (this->CSimController.AtCenter(&this->CTopRightParticle)) {
@@ -102,7 +109,7 @@ void MainScene::run() {
 		}
 		if (this->CSimController.AtCenter(&this->CBottomRightParticle)) {
 			this->CBottomRightParticle.Destroy();
-		}
+		}*/
 
 		this->CSimController.checkRank(&this->CTopLeftParticle, &Render1);
 		this->CSimController.checkRank(&this->CTopRightParticle, &Render3);

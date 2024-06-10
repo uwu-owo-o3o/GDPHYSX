@@ -2,7 +2,7 @@
 
 using namespace component;
 
-Particle::Particle() : CPosition(0.0f, 0.0f, 0.0f), CVelocity(0.0f, 0.0f, 0.0f), CAcceleration(0.002f, 0.0f, 0.0f) {
+Particle::Particle() : CPosition(0.0f, 0.0f, 0.0f), CVelocity(0.0f, 0.0f, 0.0f), CAcceleration(0.002f, 0.0f, 0.0f), CAccumulatedForce(0, 0, 0) {
 	this->mass = 0;
 	this->name = "ball";
 	this->isDestroyed = false;
@@ -26,13 +26,19 @@ void Particle::UpdatePosition(float time) {
 }
 
 void Particle::UpdateVelocity(float time) {
+
+	glm::vec3 mAcceleration = this->CAccumulatedForce.getCoordinates() * (1 / this->mass);
+	this->CAcceleration.setCoordinates(mAcceleration);
+	
 	glm::vec3 mUpdatedVelocity = this->CVelocity.getCoordinates() + (this->CAcceleration.getCoordinates() * time);
-	this->CVelocity.setCoordinates(mUpdatedVelocity);
+	glm::vec3 mUpdatedVelocity2 = this->CVelocity.getCoordinates() * powf(damping, time);
+	this->CVelocity.setCoordinates(mUpdatedVelocity2);
 }
 
 void Particle::Update(float time) {
 	this->UpdatePosition(time);
 	this->UpdateVelocity(time);
+	this->ResetForce();
 }
 
 void Particle::Destroy() {
@@ -42,6 +48,16 @@ void Particle::Destroy() {
 
 bool Particle::checkIfDestroyed() {
 	return this->isDestroyed;
+}
+
+void Particle::AddForce(Vector force) {
+	glm::vec3 sumForce = this->CAccumulatedForce.getCoordinates() + force.getCoordinates();
+	this->CAccumulatedForce.setCoordinates(sumForce);
+}
+
+void Particle::ResetForce() {
+	this->CAcceleration = Vector(0, 0, 0);
+	this->CAccumulatedForce = Vector(0, 0, 0);
 }
 
 Vector* Particle::getPosition() {

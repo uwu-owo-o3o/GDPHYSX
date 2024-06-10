@@ -7,8 +7,12 @@
 
 namespace component {
 	class Particle {
-		private:
+		public:
+			float damping = 0.9f;
+			Vector CAccumulatedForce;
+		public:
 			float mass;
+		private:
 			Vector CPosition;
 			Vector CVelocity;
 			Vector CAcceleration;
@@ -25,6 +29,8 @@ namespace component {
 			void Update(float time);
 			void Destroy();
 			bool checkIfDestroyed();
+			void AddForce(Vector force);
+			void ResetForce();
 		public:
 			Vector* getPosition();
 			void setPosition(Vector CVector);
