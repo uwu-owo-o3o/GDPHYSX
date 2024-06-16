@@ -9,7 +9,7 @@ namespace component {
 	class Particle {
 		public:
 			float damping = 0.9f;
-			Vector CAccumulatedForce;
+			Vector CAccumulatedForce = Vector(0, 0, 0);
 		public:
 			float mass;
 		private:
