@@ -16,59 +16,28 @@ void MainScene::run() {
 	
 	this->CTopLeftParticle.setPosition(Vector(-100.0f, 0.0f, 0.0f));
 
-	this->CTopLeftParticle.setVelocity(Vector(80.0f, 0.0f, 0.0f));
+	//this->CTopLeftParticle.setVelocity(Vector(80.0f, 0.0f, 0.0f));
 	/*glm::vec3 acceleration = this->CSimController.deriveVelocity(&this->CTopLeftParticle, 14.5);
 	this->CTopLeftParticle.setAcceleration(Vector(acceleration.x, acceleration.y, acceleration.z));*/
 	
-	this->CBottomRightParticle.setPosition(Vector(300.0f, -300.0f, -300.0f));
-
-	glm::vec3 velocity2 = this->CSimController.deriveVelocity(&this->CBottomRightParticle, 130.0f);
-	this->CBottomRightParticle.setVelocity(Vector(velocity2.x, velocity2.y, velocity2.z));
-	glm::vec3 acceleration2 = this->CSimController.deriveVelocity(&this->CBottomRightParticle, 1.0f);
-	this->CBottomRightParticle.setAcceleration(Vector(acceleration2.x, acceleration2.y, acceleration2.z));
-
-	this->CTopRightParticle.setPosition(Vector(300.0f, 300.0f, 173.0f));
-
-	glm::vec3 velocity3 = this->CSimController.deriveVelocity(&this->CTopRightParticle, 90.0f);
-	this->CTopRightParticle.setVelocity(Vector(velocity3.x, velocity3.y, velocity3.z));
-	glm::vec3 acceleration3 = this->CSimController.deriveVelocity(&this->CTopRightParticle, 8.0f);
-	this->CTopRightParticle.setAcceleration(Vector(acceleration3.x, acceleration3.y, acceleration3.z));
-
-	this->CBottomLeftParticle.setPosition(Vector(-300.0f, -300.0f, -150.0f));
-
-	glm::vec3 velocity4 = this->CSimController.deriveVelocity(&this->CBottomLeftParticle, 110.0f);
-	this->CBottomLeftParticle.setVelocity(Vector(velocity4.x, velocity4.y, velocity4.z));
-	glm::vec3 acceleration4 = this->CSimController.deriveVelocity(&this->CBottomLeftParticle, 3.0f);
-	this->CBottomLeftParticle.setAcceleration(Vector(acceleration4.x, acceleration4.y, acceleration4.z));
-
-	this->CWorld.AddParticle(&this->CTopLeftParticle);
-	this->CWorld.AddParticle(&this->CBottomRightParticle);
-	this->CWorld.AddParticle(&this->CTopRightParticle);
-	this->CWorld.AddParticle(&this->CBottomLeftParticle);
-
 	RenderParticle Render1 = RenderParticle(&this->CTopLeftParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
 	this->lRenderParticles.push_back(&Render1);
-
-	RenderParticle Render2 = RenderParticle(&this->CBottomRightParticle, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
-	this->lRenderParticles.push_back(&Render2);
-
-	RenderParticle Render3 = RenderParticle(&this->CTopRightParticle, this->vecModels[2], Vector(0.0f, 1.0f, 0.0f));
-	this->lRenderParticles.push_back(&Render3);
-
-	RenderParticle Render4 = RenderParticle(&this->CBottomLeftParticle, this->vecModels[3], Vector(1.0f, 1.0f, 0.0f));
-	this->lRenderParticles.push_back(&Render4);
 
 	bool bEndSim = false;
 	float ticks = 0.0f;
 	
 	CTopLeftParticle.mass = 1.0f;
 	//CTopLeftParticle.AddForce(Vector(6000, 3000, 3000));
-
-	CTopLeftParticle.AddForce(Vector(6000.0f, 0.0f, 0.0f));
+	std::cout << "X Position: TopLeftParticle: " << CTopLeftParticle.getPosition()->getX() << std::endl;
+	CTopLeftParticle.AddForce(Vector(6000, 0, 0));
+	std::cout << "X Position: TopLeftParticle: " << CTopLeftParticle.getPosition()->getX() << std::endl;
+	//CTopLeftParticle.AddForce(Vector(6000.0f, 0.0f, 0.0f));
+	this->CWorld.AddParticle(&this->CTopLeftParticle);
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
 
 		
+
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		ticks += 0.0001f;
@@ -83,44 +52,6 @@ void MainScene::run() {
 			curr_ns -= curr_ns;
 			//std::cout << "P6 Update" << std::endl;
 			this->CWorld.Update((float)ms.count() / 1000);
-			if (!this->CTopLeftParticle.checkIfDestroyed()) {
-				this->CTopLeftParticle.time += (float)ms.count() / 1000;
-			}
-			if (!this->CTopRightParticle.checkIfDestroyed()) {
-				this->CTopRightParticle.time += (float)ms.count() / 1000;
-			}
-			if (!this->CBottomLeftParticle.checkIfDestroyed()) {
-				this->CBottomLeftParticle.time += (float)ms.count() / 1000;
-			}
-			if (!this->CBottomRightParticle.checkIfDestroyed()) {
-				this->CBottomRightParticle.time += (float)ms.count() / 1000;
-			}
-		}
-
-
-		/*if (this->CSimController.AtCenter(&this->CTopLeftParticle)) {
-			this->CTopLeftParticle.Destroy();
-		}
-		if (this->CSimController.AtCenter(&this->CTopRightParticle)) {
-			this->CTopRightParticle.Destroy();
-		}
-		if (this->CSimController.AtCenter(&this->CBottomLeftParticle)) {
-			this->CBottomLeftParticle.Destroy();
-		}
-		if (this->CSimController.AtCenter(&this->CBottomRightParticle)) {
-			this->CBottomRightParticle.Destroy();
-		}*/
-
-		this->CSimController.checkRank(&this->CTopLeftParticle, &Render1);
-		this->CSimController.checkRank(&this->CTopRightParticle, &Render3);
-		this->CSimController.checkRank(&this->CBottomRightParticle, &Render2);
-		this->CSimController.checkRank(&this->CBottomLeftParticle, &Render4);
-
-		if (this->CSimController.Particles.size() == 4) {
-			if (!bEndSim) {
-				this->CSimController.printResult();
-			}
-			bEndSim = true;
 		}
 
 		//std::cout << "Normal Update" << std::endl;
@@ -157,30 +88,10 @@ void MainScene::createSphere() {
 	pSphere->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
 	pSphere->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(20.0f, 20.0f, 20.0f));
 	this->vecModels.push_back(pSphere);
-
-	Model3D* pSphere2 = new Model3D("3D/sphere.obj");
-	pSphere2->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere2->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(20.0f, 20.0f, 20.0f));
-	this->vecModels.push_back(pSphere2);
-	
-	Model3D* pSphere3 = new Model3D("3D/sphere.obj");
-	pSphere3->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere3->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(20.0f, 20.0f, 20.0f));
-	this->vecModels.push_back(pSphere3);
-
-	Model3D* pSphere4 = new Model3D("3D/sphere.obj");
-	pSphere4->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere4->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(20.0f, 20.0f, 20.0f));
-	this->vecModels.push_back(pSphere4);
-
 }
 
 void MainScene::update() {
 	this->vecModels[0]->getTransform()->calculateTransformMatrix();
-	this->vecModels[1]->getTransform()->calculateTransformMatrix();
-	this->vecModels[2]->getTransform()->calculateTransformMatrix();
-	this->vecModels[3]->getTransform()->calculateTransformMatrix();
-
 }
 
 void MainScene::render() {

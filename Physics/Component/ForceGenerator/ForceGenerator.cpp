@@ -4,4 +4,5 @@ using namespace component;
 
 void ForceGenerator::UpdateForce(Particle* particle, float time)
 {
+
 }

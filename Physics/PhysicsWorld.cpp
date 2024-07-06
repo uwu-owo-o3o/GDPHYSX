@@ -7,6 +7,7 @@ void PhysicsWorld::AddParticle(Particle* toAdd) {
 }
 
 void PhysicsWorld::Update(float time) {
+	
 	UpdateParticleList();
 	for (std::list<Particle*>::iterator p = Particles.begin(); p != Particles.end(); p++) {
 		
