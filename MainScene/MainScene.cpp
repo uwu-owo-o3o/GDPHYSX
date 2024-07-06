@@ -2,7 +2,7 @@
 
 using namespace scene;
 
-MainScene::MainScene() : COrthoCam(), CTopLeftParticle(), CSimController(), CBottomRightParticle(), CTopRightParticle(), CBottomLeftParticle() {
+MainScene::MainScene() : COrthoCam(), CParticle() {
 	this->intialize();
 }
 
@@ -14,37 +14,14 @@ void MainScene::run() {
 	auto prev_time = curr_time;
 	std::chrono::nanoseconds curr_ns(0);
 	
-	this->CTopLeftParticle.setPosition(Vector(-300.0f, 300.0f, 201.0f));
+	this->CParticle.setPosition(Vector(0.0f, -250.0f, 0.0f));
+	this->CParticle.mass = 1.0f;
+
+	this->CParticle.AddForce(Vector(0, 16000, 0));
 	
-	glm::vec3 velocity = this->CSimController.deriveVelocity(&this->CTopLeftParticle, 80.0f);
-	this->CTopLeftParticle.setVelocity(Vector(velocity.x, velocity.y, velocity.z));
-	glm::vec3 acceleration = this->CSimController.deriveVelocity(&this->CTopLeftParticle, 14.5);
-	this->CTopLeftParticle.setAcceleration(Vector(acceleration.x, acceleration.y, acceleration.z));
-	
-	this->CBottomRightParticle.setPosition(Vector(300.0f, -300.0f, -300.0f));
+	this->CWorld.AddParticle(&this->CParticle);
 
-	glm::vec3 velocity2 = this->CSimController.deriveVelocity(&this->CBottomRightParticle, 130.0f);
-	this->CBottomRightParticle.setVelocity(Vector(velocity2.x, velocity2.y, velocity2.z));
-	glm::vec3 acceleration2 = this->CSimController.deriveVelocity(&this->CBottomRightParticle, 1.0f);
-	this->CBottomRightParticle.setAcceleration(Vector(acceleration2.x, acceleration2.y, acceleration2.z));
-
-	this->CTopRightParticle.setPosition(Vector(300.0f, 300.0f, 173.0f));
-
-	glm::vec3 velocity3 = this->CSimController.deriveVelocity(&this->CTopRightParticle, 90.0f);
-	this->CTopRightParticle.setVelocity(Vector(velocity3.x, velocity3.y, velocity3.z));
-	glm::vec3 acceleration3 = this->CSimController.deriveVelocity(&this->CTopRightParticle, 8.0f);
-	this->CTopRightParticle.setAcceleration(Vector(acceleration3.x, acceleration3.y, acceleration3.z));
-
-	this->CBottomLeftParticle.setPosition(Vector(-300.0f, -300.0f, -150.0f));
-
-	glm::vec3 velocity4 = this->CSimController.deriveVelocity(&this->CBottomLeftParticle, 110.0f);
-	this->CBottomLeftParticle.setVelocity(Vector(velocity4.x, velocity4.y, velocity4.z));
-	glm::vec3 acceleration4 = this->CSimController.deriveVelocity(&this->CBottomLeftParticle, 3.0f);
-	this->CBottomLeftParticle.setAcceleration(Vector(acceleration4.x, acceleration4.y, acceleration4.z));
-
-	this->CWorld.AddParticle(&this->CTopLeftParticle);
-
-	RenderParticle Render1 = RenderParticle(&this->CTopLeftParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
+	RenderParticle Render1 = RenderParticle(&this->CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
 	this->lRenderParticles.push_back(&Render1);
 
 	bool bEndSim = false;
@@ -68,7 +45,7 @@ void MainScene::run() {
 
 		//std::cout << "Normal Update" << std::endl;
 		this->update();
-		this->vecModels[0]->getTransform()->setAtt(TransformAtt::TRANSLATE, this->CTopLeftParticle.getPosition()->getCoordinates());
+		//this->vecModels[0]->getTransform()->setAtt(TransformAtt::TRANSLATE, this->CParticle.getPosition()->getCoordinates());
 		this->render();
 
 		glfwSwapBuffers(this->pWindow);

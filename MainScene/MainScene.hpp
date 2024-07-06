@@ -34,10 +34,8 @@ namespace scene {
 			GLFWwindow* pWindow;
 			std::vector<Model3D*> vecModels;
 			OrthoCam COrthoCam;
-			Particle CTopLeftParticle;
-			Particle CBottomRightParticle;
-			Particle CTopRightParticle;
-			Particle CBottomLeftParticle;
+			Particle CParticle;
+	
 			SimController CSimController;
 			PhysicsWorld CWorld;
 			std::list<RenderParticle*> lRenderParticles;

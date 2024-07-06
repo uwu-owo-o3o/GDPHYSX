@@ -8,15 +8,18 @@
 namespace component {
 	class Particle {
 		private:
-			float mass;
+			float damping;
 			Vector CPosition;
 			Vector CVelocity;
 			Vector CAcceleration;
+			Vector CAccumulatedForce;
 			bool isDestroyed;
+
 		public:
 			std::string name;
 			float time;
 			float magnitudeVelocity;
+			float mass;
 		public:
 			Particle();
 		public:
@@ -25,6 +28,8 @@ namespace component {
 			void Update(float time);
 			void Destroy();
 			bool checkIfDestroyed();
+			void AddForce(Vector force);
+			void ResetForce();
 		public:
 			Vector* getPosition();
 			void setPosition(Vector CVector);
