@@ -20,6 +20,7 @@
 #include "../../Controller/SimController/SimController.hpp"
 #include "../Physics/PhysicsWorld.hpp"
 #include "../Physics/Component/Particle/RenderParticle.hpp"
+#include "../Physics/Generator/DragForceGenerator.hpp"
 
 namespace scene {
 	using namespace model;
@@ -28,6 +29,7 @@ namespace scene {
 	using namespace input;
 	using namespace controller;
 	using namespace world;
+	using namespace generator;
 	using namespace std::chrono_literals;
 	class MainScene {
 		private:

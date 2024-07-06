@@ -14,15 +14,18 @@ void MainScene::run() {
 	auto prev_time = curr_time;
 	std::chrono::nanoseconds curr_ns(0);
 	
-	this->CParticle.setPosition(Vector(0.0f, -250.0f, 0.0f));
+	this->CParticle.setPosition(Vector(-250.0f, 290.0f, 0.0f));
 	this->CParticle.mass = 1.0f;
 
-	this->CParticle.AddForce(Vector(0, 16000, 0));
+	this->CParticle.AddForce(Vector(3000, 0, 0));
 	
 	this->CWorld.AddParticle(&this->CParticle);
-
+	
 	RenderParticle Render1 = RenderParticle(&this->CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
 	this->lRenderParticles.push_back(&Render1);
+
+	DragForceGenerator dragForceGenerator = DragForceGenerator(0.14, 0.1);
+	CWorld.forceRegistry.Add(&this->CParticle, &dragForceGenerator);
 
 	bool bEndSim = false;
 	float ticks = 0.0f;
@@ -45,7 +48,6 @@ void MainScene::run() {
 
 		//std::cout << "Normal Update" << std::endl;
 		this->update();
-		//this->vecModels[0]->getTransform()->setAtt(TransformAtt::TRANSLATE, this->CParticle.getPosition()->getCoordinates());
 		this->render();
 
 		glfwSwapBuffers(this->pWindow);

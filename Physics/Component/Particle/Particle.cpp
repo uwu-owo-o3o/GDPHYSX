@@ -27,9 +27,14 @@ void Particle::UpdatePosition(float time) {
 }
 
 void Particle::UpdateVelocity(float time) {
+
+	glm::vec3 acceleration = this->CAcceleration.getCoordinates() + (this->CAccumulatedForce.getCoordinates() * (1 / mass));
+	this->CAcceleration.setCoordinates(acceleration);
+
 	glm::vec3 mUpdatedVelocity = this->CVelocity.getCoordinates() + (this->CAcceleration.getCoordinates() * time);
-	
-	glm::vec3 mVelocity = mUpdatedVelocity * powf(damping, time);
+	this->CVelocity.setCoordinates(mUpdatedVelocity);
+
+	glm::vec3 mVelocity = this->CVelocity.getCoordinates() * powf(damping, time);
 
 	this->CVelocity.setCoordinates(mVelocity);
 }
@@ -50,9 +55,6 @@ bool Particle::checkIfDestroyed() {
 }
 
 void Particle::AddForce(Vector force) {
-	glm::vec3 acceleration = this->CAcceleration.getCoordinates() + (this->CAccumulatedForce.getCoordinates() * (1 / mass));
-	this->CAcceleration.setCoordinates(acceleration);
-
 	glm::vec3 accumulatedForce = this->CAccumulatedForce.getCoordinates() + force.getCoordinates();
 	this->CAccumulatedForce.setCoordinates(accumulatedForce);
 }
