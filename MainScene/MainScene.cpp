@@ -2,7 +2,7 @@
 
 using namespace scene;
 
-MainScene::MainScene() : COrthoCam(), CParticle() {
+MainScene::MainScene() : COrthoCam() {
 	this->intialize();
 }
 
@@ -14,18 +14,42 @@ void MainScene::run() {
 	auto prev_time = curr_time;
 	std::chrono::nanoseconds curr_ns(0);
 	
-	this->CParticle.setPosition(Vector(-250.0f, 290.0f, 0.0f));
-	this->CParticle.mass = 1.0f;
+	Particle CParticle = Particle();
 
-	this->CParticle.AddForce(Vector(3000, 0, 0));
-	
-	this->CWorld.AddParticle(&this->CParticle);
-	
-	RenderParticle Render1 = RenderParticle(&this->CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
+	CParticle.setPosition(Vector(-50.0f, 0.0f, 0.0f));
+	CParticle.mass = 5.0f;
+
+	//CParticle.AddForce(Vector(3000, 0, 0));
+	CParticle.setVelocity(Vector(-10, 0, 0));
+	this->CWorld.AddParticle(&CParticle);
+
+	RenderParticle Render1 = RenderParticle(&CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
 	this->lRenderParticles.push_back(&Render1);
 
-	DragForceGenerator dragForceGenerator = DragForceGenerator(0.14, 0.1);
-	CWorld.forceRegistry.Add(&this->CParticle, &dragForceGenerator);
+	Particle CParticle2 = Particle();
+
+	CParticle2.setPosition(Vector(50, 0, 0));
+	CParticle2.mass = 5.0f;
+	CParticle2.setVelocity(Vector(10, 0, 0));
+
+	this->CWorld.AddParticle(&CParticle2);
+
+	RenderParticle Render2 = RenderParticle(&CParticle2, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
+	this->lRenderParticles.push_back(&Render2);
+
+	DragForceGenerator dragForceGenerator = DragForceGenerator(0.14f, 0.1f);
+	CWorld.forceRegistry.Add(&CParticle, &dragForceGenerator);
+
+	ParticleContact contact = ParticleContact();
+	contact.particles[0] = &CParticle;
+	contact.particles[1] = &CParticle2;
+
+	contact.contactNormal.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
+	contact.contactNormal.calculateMagnitude();
+	contact.contactNormal.calculateDirection();
+	contact.contactNormal.setCoordinates(contact.contactNormal.getDirection());
+	contact.restitution = 1;
+
 
 	bool bEndSim = false;
 	float ticks = 0.0f;
@@ -44,6 +68,7 @@ void MainScene::run() {
 			curr_ns -= curr_ns;
 			//std::cout << "P6 Update" << std::endl;
 			this->CWorld.Update((float)ms.count() / 1000);
+			contact.Resolve((float)ms.count() / 1000);
 		}
 
 		//std::cout << "Normal Update" << std::endl;
@@ -76,13 +101,19 @@ void MainScene::intialize() {
 
 void MainScene::createSphere() {
 	Model3D* pSphere = new Model3D("3D/sphere.obj");
-	pSphere->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(20.0f, 20.0f, 20.0f));
+	//pSphere->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
+	pSphere->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(50.0f, 50.0f, 50.0f));
 	this->vecModels.push_back(pSphere);
+
+	Model3D* pSphere2 = new Model3D("3D/sphere.obj");
+	//pSphere2->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
+	pSphere2->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(50.0f, 50.0f, 50.0f));
+	this->vecModels.push_back(pSphere2);
 }
 
 void MainScene::update() {
 	this->vecModels[0]->getTransform()->calculateTransformMatrix();
+	this->vecModels[1]->getTransform()->calculateTransformMatrix();
 }
 
 void MainScene::render() {

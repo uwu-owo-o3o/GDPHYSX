@@ -148,6 +148,7 @@
     <ClCompile Include="MainScene\MainScene.cpp" />
     <ClCompile Include="Model3D\Model3D.cpp" />
     <ClCompile Include="Model3D\ObjData\ObjData.cpp" />
+    <ClCompile Include="Physics\Collision\ParticleContact.cpp" />
     <ClCompile Include="Physics\Component\Particle\Particle.cpp" />
     <ClCompile Include="Physics\Component\Particle\RenderParticle.cpp" />
     <ClCompile Include="Physics\Component\Vector.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="MainScene\MainScene.hpp" />
     <ClInclude Include="Model3D\Model3D.hpp" />
     <ClInclude Include="Model3D\ObjData\ObjData.hpp" />
+    <ClInclude Include="Physics\Collision\ParticleContact.hpp" />
     <ClInclude Include="Physics\Component\Particle\Particle.hpp" />
     <ClInclude Include="Physics\Component\Particle\RenderParticle.hpp" />
     <ClInclude Include="Physics\Component\Vector.hpp" />

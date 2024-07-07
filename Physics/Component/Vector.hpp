@@ -25,6 +25,7 @@ namespace component {
 			glm::vec3 componentMultiply(Vector CVector);
 			float calculateScalarProduct(Vector CVector);
 			glm::vec3 calculateVectorProduct(Vector CVector);
+			float calculateDotProduct(Vector CVector);
 
 		public:
 			float getX();

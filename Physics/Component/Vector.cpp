@@ -55,6 +55,14 @@ float Vector::calculateScalarProduct(Vector CVector) {
 	return (this->x * CVector.x) + (this->y * CVector.y) + (this->z * CVector.z);
 }
 
+float Vector::calculateDotProduct(Vector CVector) {
+	float x = this->x * CVector.getCoordinates().x;
+	float y = this->y * CVector.getCoordinates().y;
+	float z = this->z * CVector.getCoordinates().z;
+	float dotProduct = x + y + z;
+	return dotProduct;
+}
+
 glm::vec3 Vector::calculateVectorProduct(Vector CVector) {
 	float fX = (this->y * CVector.z) - (this->z * CVector.y);
 	float fY = (this->z * CVector.x) - (this->x * CVector.z);
