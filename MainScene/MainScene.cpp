@@ -40,16 +40,23 @@ void MainScene::run() {
 	DragForceGenerator dragForceGenerator = DragForceGenerator(0.14f, 0.1f);
 	CWorld.forceRegistry.Add(&CParticle, &dragForceGenerator);
 
-	ParticleContact contact = ParticleContact();
-	contact.particles[0] = &CParticle;
-	contact.particles[1] = &CParticle2;
+	//ParticleContact contact = ParticleContact();
+	//contact.particles[0] = &CParticle;
+	//contact.particles[1] = &CParticle2;
 
-	contact.contactNormal.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
-	contact.contactNormal.calculateMagnitude();
-	contact.contactNormal.calculateDirection();
-	contact.contactNormal.setCoordinates(contact.contactNormal.getDirection());
-	contact.restitution = 1;
+	//contact.contactNormal.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
+	//contact.contactNormal.calculateMagnitude();
+	//contact.contactNormal.calculateDirection();
+	//contact.contactNormal.setCoordinates(contact.contactNormal.getDirection());
+	//contact.restitution = 1;
+	
+	Vector dir = Vector();
+	dir.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
+	dir.calculateMagnitude();
+	dir.calculateDirection();
+	dir.setCoordinates(dir.getDirection());
 
+	this->CWorld.AddContact(&CParticle, &CParticle2, 1, dir);
 
 	bool bEndSim = false;
 	float ticks = 0.0f;
@@ -68,7 +75,7 @@ void MainScene::run() {
 			curr_ns -= curr_ns;
 			//std::cout << "P6 Update" << std::endl;
 			this->CWorld.Update((float)ms.count() / 1000);
-			contact.Resolve((float)ms.count() / 1000);
+			//contact.Resolve((float)ms.count() / 1000);
 		}
 
 		//std::cout << "Normal Update" << std::endl;

@@ -11,7 +11,7 @@ namespace collision {
 			Vector contactNormal;
 		public:
 			void Resolve(float time);
-		protected:
+		public:
 			float GetSeparatingSpeed();
 			void ResolveVelocity(float time);
 

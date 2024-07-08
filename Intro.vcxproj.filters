@@ -78,6 +78,9 @@
     <ClCompile Include="Physics\Collision\ParticleContact.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\Collision\ContactResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tiny_obj_loader.h">
@@ -144,6 +147,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Physics\Collision\ParticleContact.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Collision\ContactResolver.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

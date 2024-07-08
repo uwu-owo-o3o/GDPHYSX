@@ -15,6 +15,22 @@ void PhysicsWorld::Update(float time) {
 		(*p)->Update(time);
 		
 	}
+
+	if (Contacts.size() > 0) {
+		//std::cout << "entered contacts.size > 0 if" << std::endl;
+		contactResolver.ResolveContacts(Contacts, time);
+	}
+}
+
+void PhysicsWorld::AddContact(Particle* p1, Particle* p2, float restitution, Vector contactNormal) {
+	
+	ParticleContact* toAdd = new ParticleContact();
+	toAdd->particles[0] = p1;
+	toAdd->particles[1] = p2;
+	toAdd->restitution = restitution;
+	toAdd->contactNormal = contactNormal;
+
+	Contacts.push_back(toAdd);
 }
 
 void PhysicsWorld::UpdateParticleList() {
