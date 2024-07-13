@@ -49,4 +49,42 @@ void ParticleContact::ResolveVelocity(float time) {
 
 void ParticleContact::Resolve(float time) {
 	this->ResolveVelocity(time);
+	this->ResolveInterpenetration(time);
+	
+}
+
+void ParticleContact::ResolveInterpenetration(float time) {
+	if (depth <= 0) {
+		return;
+	}	
+
+	float totalMass = (float)1 / particles[0]->mass;
+	if (particles[1]) {
+		totalMass += (float)1 / particles[1]->mass;
+	}
+
+	if (totalMass <= 0) {
+		return;
+	}
+
+	float totalMoveByMass = depth / totalMass;
+	Vector moveByMass = Vector();
+	moveByMass.setCoordinates(contactNormal.scalarMultiply(totalMoveByMass));
+
+	Vector P_a = Vector();
+	P_a.setCoordinates(moveByMass.getCoordinates() * ((float)1/particles[0]->mass));
+	
+	glm::vec3 pos1 = particles[0]->getPosition()->add(P_a);
+	particles[0]->getPosition()->setCoordinates(pos1);
+
+	if (particles[1]) {
+		Vector P_b = Vector();
+		P_b.setCoordinates(moveByMass.getCoordinates() * (-(float)1 / particles[1]->mass));
+
+		glm::vec3 pos2 = particles[1]->getPosition()->add(P_b);
+		particles[1]->getPosition()->setCoordinates(pos2);
+	
+	}
+
+	depth = 0;
 }

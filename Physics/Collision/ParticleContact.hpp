@@ -6,6 +6,7 @@ namespace collision {
 	using namespace component;
 	class ParticleContact {
 		public:
+			float depth;
 			Particle* particles[2];
 			float restitution;
 			Vector contactNormal;
@@ -14,6 +15,7 @@ namespace collision {
 		public:
 			float GetSeparatingSpeed();
 			void ResolveVelocity(float time);
+			void ResolveInterpenetration(float time);
 
 	};
 }
