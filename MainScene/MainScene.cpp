@@ -17,10 +17,10 @@ void MainScene::run() {
 	Particle CParticle = Particle();
 
 	CParticle.setPosition(Vector(-50.0f, 0.0f, 0.0f));
-	CParticle.mass = 5.0f;
+	CParticle.mass = 10.0f;
 
-	//CParticle.AddForce(Vector(3000, 0, 0));
-	CParticle.setVelocity(Vector(-10, 0, 0));
+	//CParticle.AddForce(Vector(500000, 0, 0));
+	//CParticle.setVelocity(Vector(0.6, 0.3, 0));
 	this->CWorld.AddParticle(&CParticle);
 
 	RenderParticle Render1 = RenderParticle(&CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
@@ -29,8 +29,8 @@ void MainScene::run() {
 	Particle CParticle2 = Particle();
 
 	CParticle2.setPosition(Vector(50, 0, 0));
-	CParticle2.mass = 5.0f;
-	CParticle2.setVelocity(Vector(10, 0, 0));
+	CParticle2.mass = 10.0f;
+	//CParticle2.setVelocity(Vector(10, 0, 0));
 
 	this->CWorld.AddParticle(&CParticle2);
 
@@ -39,6 +39,12 @@ void MainScene::run() {
 
 	DragForceGenerator dragForceGenerator = DragForceGenerator(0.14f, 0.1f);
 	CWorld.forceRegistry.Add(&CParticle, &dragForceGenerator);
+	
+	ParticleSpring pS = ParticleSpring(&CParticle, 5, 1);
+	this->CWorld.forceRegistry.Add(&CParticle2, &pS);
+
+	ParticleSpring pS2 = ParticleSpring(&CParticle2, 5, 1);
+	this->CWorld.forceRegistry.Add(&CParticle, &pS2);
 
 	//ParticleContact contact = ParticleContact();
 	//contact.particles[0] = &CParticle;
@@ -50,20 +56,20 @@ void MainScene::run() {
 	//contact.contactNormal.setCoordinates(contact.contactNormal.getDirection());
 	//contact.restitution = 1;
 	
-	Vector dir = Vector();
-	dir.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
-	dir.calculateMagnitude();
-	dir.calculateDirection();
-	dir.setCoordinates(dir.getDirection());
+	//Vector dir = Vector();
+	//dir.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
+	//dir.calculateMagnitude();
+	//dir.calculateDirection();
+	//dir.setCoordinates(dir.getDirection());
 
-	this->CWorld.AddContact(&CParticle, &CParticle2, 1, dir);
-
-	bool bEndSim = false;
-	float ticks = 0.0f;
+	//this->CWorld.AddContact(&CParticle, &CParticle2, 1, dir);
+	/*
+	AnchoredSpring aSpring = AnchoredSpring(Vector(20, 0, 0), 5, 0.5);
+	this->CWorld.forceRegistry.Add(&CParticle, &aSpring);*/
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		ticks += 0.0001f;
+		
 		curr_time = clock::now();
 		auto durr = std::chrono::duration_cast<std::chrono::nanoseconds>(curr_time - prev_time);
 		prev_time = curr_time;
@@ -81,6 +87,11 @@ void MainScene::run() {
 		//std::cout << "Normal Update" << std::endl;
 		this->update();
 		this->render();
+
+		//glBegin(GL_LINES);
+		//	glVertex2f(aSpring.anchorPoint.getX(), aSpring.anchorPoint.getY());
+		//	glVertex2f(CParticle.getPosition()->getX(), CParticle.getPosition()->getY());
+		//glEnd();
 
 		glfwSwapBuffers(this->pWindow);
 		glfwPollEvents();

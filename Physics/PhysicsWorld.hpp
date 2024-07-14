@@ -15,7 +15,7 @@ namespace world {
 	class PhysicsWorld {
 		public:
 			ForceRegistry forceRegistry;
-			GravityForceGenerator Gravity = GravityForceGenerator(Vector(0.0f, 0.0f, 0.0f));
+			GravityForceGenerator Gravity = GravityForceGenerator(Vector(0.0f, -9.8f, 0.0f));
 			std::list<Particle*> Particles;
 			std::vector<ParticleContact*> Contacts;
 		protected:

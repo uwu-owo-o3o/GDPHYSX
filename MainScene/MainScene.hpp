@@ -23,6 +23,9 @@
 #include "../Physics/Generator/DragForceGenerator.hpp"
 #include "../Physics/Collision/ParticleContact.hpp"
 
+#include "../Physics/Spring/AnchoredSpring.hpp"
+#include "../Physics/Spring/ParticleSpring.hpp"
+
 namespace scene {
 	using namespace model;
 	using namespace camera;
@@ -33,6 +36,7 @@ namespace scene {
 	using namespace generator;
 	using namespace collision;
 	using namespace std::chrono_literals;
+	
 	class MainScene {
 		private:
 			GLFWwindow* pWindow;
