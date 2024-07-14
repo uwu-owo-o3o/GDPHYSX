@@ -16,6 +16,8 @@ void PhysicsWorld::Update(float time) {
 		
 	}
 
+	GenerateContacts();
+
 	if (Contacts.size() > 0) {
 		//std::cout << "entered contacts.size > 0 if" << std::endl;
 		contactResolver.ResolveContacts(Contacts, time);
@@ -39,5 +41,16 @@ void PhysicsWorld::UpdateParticleList() {
 			return p->checkIfDestroyed();
 		}
 	);
+}
+
+void PhysicsWorld::GenerateContacts() {
+
+	Contacts.clear();
+	for (std::list<ParticleLink*>::iterator i = Links.begin(); i != Links.end(); i++) {
+		ParticleContact* contact = (*i)->GetContact();
+		if (contact != nullptr) {
+			Contacts.push_back(contact);
+		}
+	}
 }
 

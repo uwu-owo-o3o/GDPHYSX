@@ -159,6 +159,8 @@
     <ClCompile Include="Physics\Generator\ForceRegistry.cpp" />
     <ClCompile Include="Physics\Generator\GravityForceGenerator.cpp" />
     <ClCompile Include="Physics\PhysicsWorld.cpp" />
+    <ClCompile Include="Physics\Rod\ParticleLink.cpp" />
+    <ClCompile Include="Physics\Rod\Rod.cpp" />
     <ClCompile Include="Physics\Spring\AnchoredSpring.cpp" />
     <ClCompile Include="Physics\Spring\ParticleSpring.cpp" />
     <ClCompile Include="Shaders\ShaderManager\ShaderManager.cpp" />
@@ -184,6 +186,8 @@
     <ClInclude Include="Physics\Generator\ForceRegistry.hpp" />
     <ClInclude Include="Physics\Generator\GravityForceGenerator.hpp" />
     <ClInclude Include="Physics\PhysicsWorld.hpp" />
+    <ClInclude Include="Physics\Rod\ParticleLink.hpp" />
+    <ClInclude Include="Physics\Rod\Rod.hpp" />
     <ClInclude Include="Physics\Spring\AnchoredSpring.hpp" />
     <ClInclude Include="Physics\Spring\ParticleSpring.hpp" />
     <ClInclude Include="Shaders\ShaderManager\ShaderManager.hpp" />

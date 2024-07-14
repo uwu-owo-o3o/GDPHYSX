@@ -16,11 +16,14 @@ void MainScene::run() {
 	
 	Particle CParticle = Particle();
 
-	CParticle.setPosition(Vector(-50.0f, 0.0f, 0.0f));
-	CParticle.mass = 10.0f;
+	CParticle.setPosition(Vector(100.0f, 0.0f, 0.0f));
+	CParticle.mass = 50.0f;
 
-	//CParticle.AddForce(Vector(500000, 0, 0));
-	//CParticle.setVelocity(Vector(0.6, 0.3, 0));
+	Vector force1 = Vector(0.0, 1.0f, 0.0f);
+	force1.setCoordinates(force1.scalarMultiply(500000));
+	
+	//CParticle.AddForce(force1);
+	
 	this->CWorld.AddParticle(&CParticle);
 
 	RenderParticle Render1 = RenderParticle(&CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
@@ -29,9 +32,7 @@ void MainScene::run() {
 	Particle CParticle2 = Particle();
 
 	CParticle2.setPosition(Vector(50, 0, 0));
-	CParticle2.mass = 10.0f;
-	//CParticle2.setVelocity(Vector(10, 0, 0));
-
+	CParticle2.mass = 50.0f;
 	this->CWorld.AddParticle(&CParticle2);
 
 	RenderParticle Render2 = RenderParticle(&CParticle2, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
@@ -45,27 +46,12 @@ void MainScene::run() {
 
 	ParticleSpring pS2 = ParticleSpring(&CParticle2, 5, 1);
 	this->CWorld.forceRegistry.Add(&CParticle, &pS2);
-
-	//ParticleContact contact = ParticleContact();
-	//contact.particles[0] = &CParticle;
-	//contact.particles[1] = &CParticle2;
-
-	//contact.contactNormal.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
-	//contact.contactNormal.calculateMagnitude();
-	//contact.contactNormal.calculateDirection();
-	//contact.contactNormal.setCoordinates(contact.contactNormal.getDirection());
-	//contact.restitution = 1;
 	
-	//Vector dir = Vector();
-	//dir.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
-	//dir.calculateMagnitude();
-	//dir.calculateDirection();
-	//dir.setCoordinates(dir.getDirection());
-
-	//this->CWorld.AddContact(&CParticle, &CParticle2, 1, dir);
-	/*
-	AnchoredSpring aSpring = AnchoredSpring(Vector(20, 0, 0), 5, 0.5);
-	this->CWorld.forceRegistry.Add(&CParticle, &aSpring);*/
+	Rod* r = new Rod();
+	r->particles[0] = &CParticle;
+	r->particles[1] = &CParticle2;
+	r->length = 200;
+	this->CWorld.Links.push_back(r);
 
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
