@@ -26,9 +26,10 @@ namespace world {
 		public:
 			void AddParticle(Particle* toAdd);
 			void Update(float time);
-			void AddContact(Particle* p1, Particle* p2, float restitution, Vector contactNormal);
+			void AddContact(Particle* p1, Particle* p2, float restitution, Vector contactNormal, float depth);
 		public:
 			void UpdateParticleList();
 			void GenerateContacts();
+			void GetOverlaps();
 	};
 }

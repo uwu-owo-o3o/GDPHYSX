@@ -22,9 +22,7 @@ ParticleContact* Rod::GetContact() {
 		ret->depth = currLen - length;
 	}
 	else {
-		glm::vec3 invertedDir = dir.getCoordinates();
-		invertedDir = -invertedDir;
-
+		glm::vec3 invertedDir = dir.scalarMultiply(-1);
 		ret->contactNormal.setCoordinates(invertedDir);
 
 		ret->depth = length - currLen;

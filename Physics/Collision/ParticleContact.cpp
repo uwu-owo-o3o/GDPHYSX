@@ -10,7 +10,7 @@ float ParticleContact::GetSeparatingSpeed() {
 		
 	}
 
-	return velocity.calculateDotProduct(contactNormal);
+	return velocity.calculateScalarProduct(contactNormal);
 }
 
 void ParticleContact::ResolveVelocity(float time) {

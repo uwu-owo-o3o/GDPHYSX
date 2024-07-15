@@ -15,26 +15,27 @@ void MainScene::run() {
 	std::chrono::nanoseconds curr_ns(0);
 	
 	Particle CParticle = Particle();
-
-	CParticle.setPosition(Vector(100.0f, 0.0f, 0.0f));
+	CParticle.setPosition(Vector(-50.0f, 0.0f, 0.0f));
 	CParticle.mass = 50.0f;
 
-	Vector force1 = Vector(0.0, 1.0f, 0.0f);
-	force1.setCoordinates(force1.scalarMultiply(500000));
+	//Vector force1 = Vector(0.0, 1.0f, 0.0f);
+	//force1.setCoordinates(force1.scalarMultiply(500000));
 	
 	//CParticle.AddForce(force1);
 	
 	this->CWorld.AddParticle(&CParticle);
 
+	this->vecModels[0]->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(CParticle.radius, CParticle.radius, CParticle.radius));
 	RenderParticle Render1 = RenderParticle(&CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
 	this->lRenderParticles.push_back(&Render1);
 
 	Particle CParticle2 = Particle();
 
-	CParticle2.setPosition(Vector(50, 0, 0));
+	CParticle2.setPosition(Vector(50.0f, 0.0f, 0.0f));
 	CParticle2.mass = 50.0f;
 	this->CWorld.AddParticle(&CParticle2);
 
+	this->vecModels[1]->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(CParticle.radius, CParticle.radius, CParticle.radius));
 	RenderParticle Render2 = RenderParticle(&CParticle2, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
 	this->lRenderParticles.push_back(&Render2);
 
@@ -78,6 +79,8 @@ void MainScene::run() {
 		//	glVertex2f(aSpring.anchorPoint.getX(), aSpring.anchorPoint.getY());
 		//	glVertex2f(CParticle.getPosition()->getX(), CParticle.getPosition()->getY());
 		//glEnd();
+		std::cout << "current x1: " << r->particles[0]->getPosition()->getX() << std::endl;
+		std::cout << "current x2: " << r->particles[1]->getPosition()->getX() << std::endl;
 
 		glfwSwapBuffers(this->pWindow);
 		glfwPollEvents();
@@ -106,12 +109,10 @@ void MainScene::intialize() {
 void MainScene::createSphere() {
 	Model3D* pSphere = new Model3D("3D/sphere.obj");
 	//pSphere->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(50.0f, 50.0f, 50.0f));
 	this->vecModels.push_back(pSphere);
 
 	Model3D* pSphere2 = new Model3D("3D/sphere.obj");
 	//pSphere2->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere2->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(50.0f, 50.0f, 50.0f));
 	this->vecModels.push_back(pSphere2);
 }
 

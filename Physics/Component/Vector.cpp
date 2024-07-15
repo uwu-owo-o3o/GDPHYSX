@@ -23,6 +23,10 @@ void Vector::calculateMagnitude() {
 	this->fMagnitude = sqrt(pow(this->x, 2) + pow(y, 2) + pow(z, 2));
 }
 
+float Vector::SquareMagnitude() {
+	return (pow(this->x, 2) + pow(y, 2) + pow(z, 2));
+}
+
 glm::vec3 Vector::add(Vector CVector) {
 	float fX = this->x + CVector.x;
 	float fY = this->y + CVector.y;

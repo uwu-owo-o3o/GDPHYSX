@@ -28,6 +28,7 @@ namespace component {
 			float calculateDotProduct(Vector CVector);
 
 		public:
+			float SquareMagnitude();
 			float getX();
 			float getY();
 			float getZ();
