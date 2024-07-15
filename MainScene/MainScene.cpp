@@ -16,24 +16,28 @@ void MainScene::run() {
 	
 	Particle CParticle = Particle();
 
-	CParticle.setPosition(Vector(10.0f, 10.0f, 0.0f));
-	CParticle.mass = 50.0f;
+	CParticle.setPosition(Vector(0.0f, 50.0f, 0.0f));
+	CParticle.mass = 10.0f;
 	CParticle.name = "Particle 1";
-	//CParticle.setVelocity(Vector(1.5f, 0.0f, 0.0f));
+	CParticle.radius = 20.0f;
+	CParticle.setVelocity(Vector(0.0f, -10.0f, 0.0f));
 	//CParticle.AddForce(Vector(500000, 0, 0));
 	//CParticle.setVelocity(Vector(0.6, 0.3, 0));
+	this->vecModels[0]->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(CParticle.radius, CParticle.radius, CParticle.radius));
 	this->CWorld.AddParticle(&CParticle);
+	
 
 	RenderParticle Render1 = RenderParticle(&CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
 	this->lRenderParticles.push_back(&Render1);
 
 	Particle CParticle2 = Particle();
-	//CParticle2.setVelocity(Vector(2.5f, 0.0f, 0.0f));
-	CParticle2.setPosition(Vector(50.0f, -10.0f, 0.0f));
-	CParticle2.mass = 100.0f;
+	CParticle2.setPosition(Vector(0.0f, -50.0f, 0.0f));
+	CParticle2.setVelocity(Vector(0.0f, 10.0f, 0.0f));
+	CParticle2.mass = 10.0f;
 	CParticle2.name = "Particle 2";
-	//CParticle2.setVelocity(Vector(10, 0, 0));
-
+	CParticle2.radius = 20.0f;
+	//CParticle2.setVelocity(Vector(10, 0, 0));	
+	this->vecModels[1]->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(CParticle2.radius, CParticle2.radius, CParticle2.radius));
 	this->CWorld.AddParticle(&CParticle2);
 
 	RenderParticle Render2 = RenderParticle(&CParticle2, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
@@ -70,11 +74,11 @@ void MainScene::run() {
 	AnchoredSpring aSpring = AnchoredSpring(Vector(20, 0, 0), 5, 0.5);
 	this->CWorld.forceRegistry.Add(&CParticle, &aSpring);*/
 
-	Rod* r = new Rod();
-	r->particles[0] = &CParticle;
-	r->particles[1] = &CParticle2;
-	r->length = 200;
-	this->CWorld.Links.push_back(r);
+	//Rod* r = new Rod();
+	//r->particles[0] = &CParticle;
+	//r->particles[1] = &CParticle2;
+	//r->length = 200;
+	//this->CWorld.Links.push_back(r);
 	
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -137,12 +141,10 @@ void MainScene::intialize() {
 void MainScene::createSphere() {
 	Model3D* pSphere = new Model3D("3D/sphere.obj");
 	//pSphere->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(50.0f, 50.0f, 50.0f));
 	this->vecModels.push_back(pSphere);
 
 	Model3D* pSphere2 = new Model3D("3D/sphere.obj");
 	//pSphere2->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
-	pSphere2->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(50.0f, 50.0f, 50.0f));
 	this->vecModels.push_back(pSphere2);
 }
 

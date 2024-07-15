@@ -20,6 +20,10 @@ namespace component {
 			float time;
 			float magnitudeVelocity;
 			float mass;
+
+			float radius = 1.0f;
+			float restitution = 1.0f;
+
 		public:
 			Particle();
 		public:

@@ -3,6 +3,7 @@
 using namespace component;
 
 ParticleContact* Rod::GetContact() {
+	//std::cout << "called for rod getContact!" << std::endl;
 	float currLen = CurrentLength();
 	if (currLen == length) {
 		return nullptr;

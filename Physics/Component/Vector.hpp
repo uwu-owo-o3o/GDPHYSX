@@ -16,6 +16,7 @@ namespace component {
 			Vector();
 		public:
 			void calculateMagnitude();
+			float SquareMagnitude();
 			void calculateDirection();
 
 		public:

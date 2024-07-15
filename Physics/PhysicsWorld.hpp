@@ -29,5 +29,6 @@ namespace world {
 		public:
 			void UpdateParticleList();
 			void GenerateContacts();
+			void GetOverlaps();
 	};
 }

@@ -46,10 +46,53 @@ void PhysicsWorld::UpdateParticleList() {
 
 void PhysicsWorld::GenerateContacts() {
 	Contacts.clear();
+
+	GetOverlaps();
+
 	for (std::list<ParticleLink*>::iterator i = Links.begin(); i != Links.end(); i++) {
+		std::cout << "this part was called!" << std::endl;
 		ParticleContact* contact = (*i)->GetContact();
 		if (contact != nullptr) {
 			Contacts.push_back(contact);
+		}
+	}
+}
+
+void PhysicsWorld::GetOverlaps()
+{
+	for (int i = 0; i < Particles.size() - 1; i++) {
+		std::cout << "i: " << i << std::endl;
+		std::list<Particle*>::iterator a = std::next(Particles.begin(), i);
+		for (int h = i + 1; h < Particles.size(); h++) {
+			std::cout << "h: " << h << std::endl;
+			std::list<Particle*>::iterator b = std::next(Particles.begin(), h);
+			Vector mag2Vector = Vector();
+			mag2Vector.setCoordinates((*a)->getPosition()->getCoordinates() - (*b)->getPosition()->getCoordinates());
+			float mag2 = mag2Vector.SquareMagnitude();
+			
+			float rad = (*a)->radius + (*b)->radius;
+
+			float rad2 = rad * rad;
+
+			if (mag2 <= rad2) {
+				//std::cout << "went into getoverlaps if" << std::endl;
+				
+				//std::cout << "a* name = " << (*a)->name << std::endl;
+				//std::cout << "b* name = " << (*b)->name << std::endl;
+
+				Vector dir = Vector();
+				mag2Vector.calculateMagnitude();
+				mag2Vector.calculateDirection();
+				dir.setCoordinates(mag2Vector.getDirection());
+
+				float r = rad2 - mag2;
+				float depth = sqrt(r);
+
+				float restitution = fmin((*a)->restitution, (*b)->restitution);
+
+				AddContact(*a, *b, restitution, dir, depth);
+			}
+			
 		}
 	}
 }
