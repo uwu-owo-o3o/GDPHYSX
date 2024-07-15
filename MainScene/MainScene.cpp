@@ -16,7 +16,7 @@ void MainScene::run() {
 	
 	Particle CParticle = Particle();
 
-	CParticle.setPosition(Vector(-50.0f, 0.0f, 0.0f));
+	CParticle.setPosition(Vector(10.0f, 10.0f, 0.0f));
 	CParticle.mass = 50.0f;
 	CParticle.name = "Particle 1";
 	//CParticle.setVelocity(Vector(1.5f, 0.0f, 0.0f));
@@ -29,8 +29,8 @@ void MainScene::run() {
 
 	Particle CParticle2 = Particle();
 	//CParticle2.setVelocity(Vector(2.5f, 0.0f, 0.0f));
-	CParticle2.setPosition(Vector(-40.0f, 0.0f, 0.0f));
-	CParticle2.mass = 50.0f;
+	CParticle2.setPosition(Vector(50.0f, -10.0f, 0.0f));
+	CParticle2.mass = 100.0f;
 	CParticle2.name = "Particle 2";
 	//CParticle2.setVelocity(Vector(10, 0, 0));
 
