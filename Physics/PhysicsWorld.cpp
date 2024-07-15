@@ -16,7 +16,7 @@ void PhysicsWorld::Update(float time) {
 		
 	}
 	
-	//GenerateContacts();
+	GenerateContacts();
 
 	if (Contacts.size() > 0) {
 		//std::cout << "entered contacts.size > 0 if" << std::endl;

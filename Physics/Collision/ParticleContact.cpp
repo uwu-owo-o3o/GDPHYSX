@@ -6,13 +6,13 @@ float ParticleContact::GetSeparatingSpeed() {
 	Vector velocity = Vector();
 	velocity.setCoordinates(particles[0]->getVelocity()->getCoordinates());
 		
-	std::cout << "name: " << particles[0]->name << std::endl;
-	std::cout << velocity.getCoordinates().x << std::endl;
+	//std::cout << "name: " << particles[0]->name << std::endl;
+	//std::cout << velocity.getCoordinates().x << std::endl;
 
 	if (particles[1]) {
 
-		std::cout << "name: " << particles[1]->name << std::endl;
-		std::cout << particles[1]->getVelocity()->getCoordinates().x << std::endl;
+		//std::cout << "name: " << particles[1]->name << std::endl;
+		//std::cout << particles[1]->getVelocity()->getCoordinates().x << std::endl;
 
 		glm::vec3 vel = velocity.subtract(*particles[1]->getVelocity());
 		velocity.setCoordinates(vel);
@@ -44,7 +44,7 @@ void ParticleContact::ResolveVelocity(float time) {
 	float impulse_mag = deltaSpeed / totalMass;
 	Vector Impulse = Vector();
 	Impulse.setCoordinates(contactNormal.getCoordinates() * impulse_mag);
-	std::cout << "Impulse x: " << Impulse.getCoordinates().x << std::endl;
+	//std::cout << "Impulse x: " << Impulse.getCoordinates().x << std::endl;
 		
 	Vector V_a = Vector();
 	V_a.setCoordinates( Impulse.getCoordinates() * ((float)1 / particles[0]->mass) );

@@ -16,7 +16,7 @@ void MainScene::run() {
 	
 	Particle CParticle = Particle();
 
-	CParticle.setPosition(Vector(10.0f, 0.0f, 0.0f));
+	CParticle.setPosition(Vector(-50.0f, 0.0f, 0.0f));
 	CParticle.mass = 50.0f;
 	CParticle.name = "Particle 1";
 	//CParticle.setVelocity(Vector(1.5f, 0.0f, 0.0f));
@@ -29,7 +29,7 @@ void MainScene::run() {
 
 	Particle CParticle2 = Particle();
 	//CParticle2.setVelocity(Vector(2.5f, 0.0f, 0.0f));
-	CParticle2.setPosition(Vector(50.0f, 0.0f, 0.0f));
+	CParticle2.setPosition(Vector(-40.0f, 0.0f, 0.0f));
 	CParticle2.mass = 50.0f;
 	CParticle2.name = "Particle 2";
 	//CParticle2.setVelocity(Vector(10, 0, 0));
@@ -41,12 +41,12 @@ void MainScene::run() {
 
 	//DragForceGenerator dragForceGenerator = DragForceGenerator(0.14f, 0.1f);
 	//CWorld.forceRegistry.Add(&CParticle, &dragForceGenerator);
-	/*
-	ParticleSpring pS = ParticleSpring(&CParticle, 5, 1);
-	this->CWorld.forceRegistry.Add(&CParticle2, &pS);
+	
+	//ParticleSpring pS = ParticleSpring(&CParticle, 5, 1);
+	//this->CWorld.forceRegistry.Add(&CParticle2, &pS);
 
-	ParticleSpring pS2 = ParticleSpring(&CParticle2, 5, 1);
-	this->CWorld.forceRegistry.Add(&CParticle, &pS2);*/
+	//ParticleSpring pS2 = ParticleSpring(&CParticle2, 5, 1);
+	//this->CWorld.forceRegistry.Add(&CParticle, &pS2);
 
 	//ParticleContact contact = ParticleContact();
 	//contact.particles[0] = &CParticle;
@@ -58,23 +58,23 @@ void MainScene::run() {
 	//contact.contactNormal.setCoordinates(contact.contactNormal.getDirection());
 	//contact.restitution = 1;
 	
-	Vector dir = Vector();
-	dir.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
-	dir.calculateMagnitude();
-	dir.calculateDirection();
-	dir.setCoordinates(dir.getDirection());
+	//Vector dir = Vector();
+	//dir.setCoordinates(CParticle.getPosition()->getCoordinates() - CParticle2.getPosition()->getCoordinates());
+	//dir.calculateMagnitude();
+	//dir.calculateDirection();
+	//dir.setCoordinates(dir.getDirection());
 
-	this->CWorld.AddContact(&CParticle, &CParticle2, 1, dir, 60);
+	//this->CWorld.AddContact(&CParticle, &CParticle2, 1, dir, 60);
 
 	/*
 	AnchoredSpring aSpring = AnchoredSpring(Vector(20, 0, 0), 5, 0.5);
 	this->CWorld.forceRegistry.Add(&CParticle, &aSpring);*/
 
-	//Rod* r = new Rod();
-	//r->particles[0] = &CParticle;
-	//r->particles[1] = &CParticle2;
-	//r->length = 200;
-	//this->CWorld.Links.push_back(r);
+	Rod* r = new Rod();
+	r->particles[0] = &CParticle;
+	r->particles[1] = &CParticle2;
+	r->length = 200;
+	this->CWorld.Links.push_back(r);
 	
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
