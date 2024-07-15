@@ -19,7 +19,7 @@ float ParticleContact::GetSeparatingSpeed() {
 		
 	}
 
-	return velocity.calculateDotProduct(contactNormal);
+	return velocity.calculateScalarProduct(contactNormal);
 }
 
 void ParticleContact::ResolveVelocity(float time) {
@@ -52,7 +52,7 @@ void ParticleContact::ResolveVelocity(float time) {
 	
 	if (particles[1]) {
 		Vector V_b = Vector();
-		V_b.setCoordinates(Impulse.getCoordinates() * ((float)1 / particles[1]->mass));
+		V_b.setCoordinates(Impulse.getCoordinates() * ((float)-1 / particles[1]->mass));
 		particles[1]->getVelocity()->setCoordinates(particles[1]->getVelocity()->getCoordinates() + V_b.getCoordinates());
 
 	}

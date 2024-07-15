@@ -16,11 +16,11 @@ void MainScene::run() {
 	
 	Particle CParticle = Particle();
 
-	CParticle.setPosition(Vector(0.0f, 50.0f, 0.0f));
+	CParticle.setPosition(Vector(-50.0f, -50.0f, 0.0f));
 	CParticle.mass = 10.0f;
 	CParticle.name = "Particle 1";
 	CParticle.radius = 20.0f;
-	CParticle.setVelocity(Vector(0.0f, -10.0f, 0.0f));
+	CParticle.setVelocity(Vector(10.0f, 10.0f, 0.0f));
 	//CParticle.AddForce(Vector(500000, 0, 0));
 	//CParticle.setVelocity(Vector(0.6, 0.3, 0));
 	this->vecModels[0]->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(CParticle.radius, CParticle.radius, CParticle.radius));
@@ -31,8 +31,8 @@ void MainScene::run() {
 	this->lRenderParticles.push_back(&Render1);
 
 	Particle CParticle2 = Particle();
-	CParticle2.setPosition(Vector(0.0f, -50.0f, 0.0f));
-	CParticle2.setVelocity(Vector(0.0f, 10.0f, 0.0f));
+	CParticle2.setPosition(Vector(50.0f, 50.0f, 0.0f));
+	CParticle2.setVelocity(Vector(-10.0f, -10.0f, 0.0f));
 	CParticle2.mass = 10.0f;
 	CParticle2.name = "Particle 2";
 	CParticle2.radius = 20.0f;
@@ -87,32 +87,18 @@ void MainScene::run() {
 		auto durr = std::chrono::duration_cast<std::chrono::nanoseconds>(curr_time - prev_time);
 		prev_time = curr_time;
 		curr_ns += durr;
-		
-
-		//std::cout << "pre update - Particle 1 pos x: " << CParticle.getPosition()->getX() << std::endl;
-		//std::cout << "pre update - Particle 1 pos y: " << CParticle.getPosition()->getY() << std::endl;
-		//std::cout << "pre update - Particle 1 pos z: " << CParticle.getPosition()->getZ() << std::endl;
 
 		if (curr_ns >= time_step) {
 			auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(curr_ns);
-			//std::cout << "MS: " << (float)ms.count() << "\n";
+			
 			curr_ns -= curr_ns;
-			//std::cout << "P6 Update" << std::endl;
+			
 			this->CWorld.Update((float)ms.count() / 1000);
-			//contact.Resolve((float)ms.count() / 1000);
 		}
 
 		//std::cout << "Normal Update" << std::endl;
 		this->update();
 		this->render();
-
-		//glBegin(GL_LINES);
-		//	glVertex2f(aSpring.anchorPoint.getX(), aSpring.anchorPoint.getY());
-		//	glVertex2f(CParticle.getPosition()->getX(), CParticle.getPosition()->getY());
-		//glEnd();
-		//std::cout << "post update - Particle 1 pos x: " << CParticle.getPosition()->getX() << std::endl;
-		//std::cout << "post update - Particle 1 pos y: " << CParticle.getPosition()->getY() << std::endl;
-		//std::cout << "post update - Particle 1 pos z: " << CParticle.getPosition()->getZ() << std::endl;
 
 		glfwSwapBuffers(this->pWindow);
 		glfwPollEvents();
@@ -123,8 +109,6 @@ void MainScene::run() {
 
 void MainScene::intialize() {
 
-	//InputManager::getInstance()->askUserVelocity(&this->CParticle);
-	
 	if (!glfwInit()) {
 		std::cout << "glfwInit has encountered an error!" << std::endl;
 	}
@@ -140,11 +124,9 @@ void MainScene::intialize() {
 
 void MainScene::createSphere() {
 	Model3D* pSphere = new Model3D("3D/sphere.obj");
-	//pSphere->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
 	this->vecModels.push_back(pSphere);
 
 	Model3D* pSphere2 = new Model3D("3D/sphere.obj");
-	//pSphere2->getTransform()->setAtt(TransformAtt::TRANSLATE, glm::vec3(0.0f, 0.0f, 0.0f));
 	this->vecModels.push_back(pSphere2);
 }
 

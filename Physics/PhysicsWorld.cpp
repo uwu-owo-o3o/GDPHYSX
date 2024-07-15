@@ -61,13 +61,13 @@ void PhysicsWorld::GenerateContacts() {
 void PhysicsWorld::GetOverlaps()
 {
 	for (int i = 0; i < Particles.size() - 1; i++) {
-		std::cout << "i: " << i << std::endl;
 		std::list<Particle*>::iterator a = std::next(Particles.begin(), i);
 		for (int h = i + 1; h < Particles.size(); h++) {
-			std::cout << "h: " << h << std::endl;
 			std::list<Particle*>::iterator b = std::next(Particles.begin(), h);
+			
 			Vector mag2Vector = Vector();
-			mag2Vector.setCoordinates((*a)->getPosition()->getCoordinates() - (*b)->getPosition()->getCoordinates());
+			mag2Vector.setCoordinates((*a)->getPosition()->subtract(*(*b)->getPosition()));
+			
 			float mag2 = mag2Vector.SquareMagnitude();
 			
 			float rad = (*a)->radius + (*b)->radius;
@@ -75,16 +75,14 @@ void PhysicsWorld::GetOverlaps()
 			float rad2 = rad * rad;
 
 			if (mag2 <= rad2) {
-				//std::cout << "went into getoverlaps if" << std::endl;
-				
-				//std::cout << "a* name = " << (*a)->name << std::endl;
-				//std::cout << "b* name = " << (*b)->name << std::endl;
 
 				Vector dir = Vector();
 				mag2Vector.calculateMagnitude();
 				mag2Vector.calculateDirection();
-				dir.setCoordinates(mag2Vector.getDirection());
-
+				mag2Vector.setCoordinates(mag2Vector.getDirection());
+				dir.setCoordinates(mag2Vector.getCoordinates());
+				
+				std::cout << "dir: " << dir.getCoordinates().y << std::endl;
 				float r = rad2 - mag2;
 				float depth = sqrt(r);
 
