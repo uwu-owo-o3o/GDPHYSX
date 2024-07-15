@@ -16,8 +16,8 @@ void MainScene::run() {
 	
 	Particle CParticle = Particle();
 
-	CParticle.setPosition(Vector(10.0f, 0.0f, 0.0f));
-	CParticle.mass = 50.0f;
+	CParticle.setPosition(Vector(-50.0f, 0.0f, 0.0f));
+	CParticle.mass = 30.0f;
 
 	//CParticle.AddForce(Vector(500000, 0, 0));
 	//CParticle.setVelocity(Vector(0.6, 0.3, 0));
@@ -26,25 +26,25 @@ void MainScene::run() {
 	RenderParticle Render1 = RenderParticle(&CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
 	this->lRenderParticles.push_back(&Render1);
 
-	//Particle CParticle2 = Particle();
+	Particle CParticle2 = Particle();
 
-	//CParticle2.setPosition(Vector(50, 0, 0));
-	//CParticle2.mass = 10.0f;
-	////CParticle2.setVelocity(Vector(10, 0, 0));
+	CParticle2.setPosition(Vector(50, 0, 0));
+	CParticle2.mass = 30.0f;
+	//CParticle2.setVelocity(Vector(10, 0, 0));
 
-	//this->CWorld.AddParticle(&CParticle2);
+	this->CWorld.AddParticle(&CParticle2);
 
-	//RenderParticle Render2 = RenderParticle(&CParticle2, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
-	//this->lRenderParticles.push_back(&Render2);
+	RenderParticle Render2 = RenderParticle(&CParticle2, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
+	this->lRenderParticles.push_back(&Render2);
 
 	//DragForceGenerator dragForceGenerator = DragForceGenerator(0.14f, 0.1f);
 	//CWorld.forceRegistry.Add(&CParticle, &dragForceGenerator);
 	//
-	//ParticleSpring pS = ParticleSpring(&CParticle, 5, 1);
-	//this->CWorld.forceRegistry.Add(&CParticle2, &pS);
+	ParticleSpring pS = ParticleSpring(&CParticle, 5, 1);
+	this->CWorld.forceRegistry.Add(&CParticle2, &pS);
 
-	//ParticleSpring pS2 = ParticleSpring(&CParticle2, 5, 1);
-	//this->CWorld.forceRegistry.Add(&CParticle, &pS2);
+	ParticleSpring pS2 = ParticleSpring(&CParticle2, 5, 1);
+	this->CWorld.forceRegistry.Add(&CParticle, &pS2);
 
 	//ParticleContact contact = ParticleContact();
 	//contact.particles[0] = &CParticle;
