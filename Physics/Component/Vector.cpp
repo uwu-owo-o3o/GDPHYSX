@@ -56,9 +56,9 @@ float Vector::calculateScalarProduct(Vector CVector) {
 }
 
 float Vector::calculateDotProduct(Vector CVector) {
-	float x = this->x * CVector.getCoordinates().x;
-	float y = this->y * CVector.getCoordinates().y;
-	float z = this->z * CVector.getCoordinates().z;
+	float x = this->x * CVector.x;
+	float y = this->y * CVector.y;
+	float z = this->z * CVector.z;
 	float dotProduct = x + y + z;
 	return dotProduct;
 }

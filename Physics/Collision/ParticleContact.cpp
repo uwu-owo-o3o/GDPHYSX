@@ -3,9 +3,18 @@
 using namespace collision;
 
 float ParticleContact::GetSeparatingSpeed() {
-	Vector velocity = *particles[0]->getVelocity();
+	Vector velocity = Vector();
+	velocity.setCoordinates(particles[0]->getVelocity()->getCoordinates());
+		
+	std::cout << "name: " << particles[0]->name << std::endl;
+	std::cout << velocity.getCoordinates().x << std::endl;
+
 	if (particles[1]) {
-		glm::vec3 vel = velocity.getCoordinates() - particles[1]->getVelocity()->getCoordinates();
+
+		std::cout << "name: " << particles[1]->name << std::endl;
+		std::cout << particles[1]->getVelocity()->getCoordinates().x << std::endl;
+
+		glm::vec3 vel = velocity.subtract(*particles[1]->getVelocity());
 		velocity.setCoordinates(vel);
 		
 	}
@@ -14,7 +23,7 @@ float ParticleContact::GetSeparatingSpeed() {
 }
 
 void ParticleContact::ResolveVelocity(float time) {
-	float separatingSpeed = GetSeparatingSpeed();
+	float separatingSpeed = this->GetSeparatingSpeed();
 
 	if (separatingSpeed > 0) {
 		return;
@@ -33,15 +42,17 @@ void ParticleContact::ResolveVelocity(float time) {
 	}
 
 	float impulse_mag = deltaSpeed / totalMass;
-	Vector Impulse = Vector(0, 0, 0);
+	Vector Impulse = Vector();
 	Impulse.setCoordinates(contactNormal.getCoordinates() * impulse_mag);
-
-	Vector V_a = Vector(0, 0, 0);
+	std::cout << "Impulse x: " << Impulse.getCoordinates().x << std::endl;
+		
+	Vector V_a = Vector();
 	V_a.setCoordinates( Impulse.getCoordinates() * ((float)1 / particles[0]->mass) );
 	particles[0]->getVelocity()->setCoordinates(particles[0]->getVelocity()->getCoordinates() + V_a.getCoordinates());
 	
 	if (particles[1]) {
-		Vector V_b = Vector(0, 0, 0);
+		Vector V_b = Vector();
+		V_b.setCoordinates(Impulse.getCoordinates() * ((float)1 / particles[1]->mass));
 		particles[1]->getVelocity()->setCoordinates(particles[1]->getVelocity()->getCoordinates() + V_b.getCoordinates());
 
 	}

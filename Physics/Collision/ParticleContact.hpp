@@ -9,7 +9,7 @@ namespace collision {
 			float depth;
 			Particle* particles[2];
 			float restitution;
-			Vector contactNormal;
+			Vector contactNormal = Vector();
 		public:
 			void Resolve(float time);
 		public:

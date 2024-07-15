@@ -26,6 +26,8 @@
 #include "../Physics/Spring/AnchoredSpring.hpp"
 #include "../Physics/Spring/ParticleSpring.hpp"
 
+#include "../Physics/Rod/Rod.hpp"
+
 namespace scene {
 	using namespace model;
 	using namespace camera;

@@ -2,7 +2,7 @@
 
 using namespace component;
 
-Particle::Particle() : CPosition(0.0f, 0.0f, 0.0f), CVelocity(0.0f, 0.0f, 0.0f), CAcceleration(0.002f, 0.0f, 0.0f), CAccumulatedForce(0, 0, 0) {
+Particle::Particle() : CPosition(0.0f, 0.0f, 0.0f), CVelocity(0.0f, 0.0f, 0.0f), CAcceleration(0.0f, 0.0f, 0.0f), CAccumulatedForce(0, 0, 0) {
 	this->mass = 0;
 	this->name = "ball";
 	this->isDestroyed = false;
