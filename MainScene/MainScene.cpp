@@ -13,34 +13,10 @@ void MainScene::run() {
 	auto curr_time = clock::now();
 	auto prev_time = curr_time;
 	std::chrono::nanoseconds curr_ns(0);
-	
-	Particle CParticle = Particle();
 
-	CParticle.setPosition(Vector(-50.0f, -50.0f, 0.0f));
-	CParticle.mass = 10.0f;
-	CParticle.name = "Particle 1";
-	CParticle.radius = 20.0f;
-	CParticle.setVelocity(Vector(10.0f, 10.0f, 0.0f));
-	this->vecModels[0]->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(CParticle.radius, CParticle.radius, CParticle.radius));
-	this->CWorld.AddParticle(&CParticle);
-	
+	Simulation sim = Simulation();
 
-	RenderParticle Render1 = RenderParticle(&CParticle, this->vecModels[0], Vector(1.0f, 0.0f, 0.0f));
-	this->lRenderParticles.push_back(&Render1);
-
-	Particle CParticle2 = Particle();
-	CParticle2.setPosition(Vector(50.0f, 50.0f, 0.0f));
-	CParticle2.setVelocity(Vector(-10.0f, -10.0f, 0.0f));
-	CParticle2.mass = 10.0f;
-	CParticle2.name = "Particle 2";
-	CParticle2.radius = 20.0f;
-	
-	this->vecModels[1]->getTransform()->setAtt(TransformAtt::SCALE, glm::vec3(CParticle2.radius, CParticle2.radius, CParticle2.radius));
-	this->CWorld.AddParticle(&CParticle2);
-
-	RenderParticle Render2 = RenderParticle(&CParticle2, this->vecModels[1], Vector(0.0f, 0.0f, 1.0f));
-	this->lRenderParticles.push_back(&Render2);
-
+	sim.createBungee(&this->CWorld, this->vecModels[0], &this->lRenderParticles);
 	
 	while (!glfwWindowShouldClose(this->pWindow)) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -74,7 +50,7 @@ void MainScene::intialize() {
 	if (!glfwInit()) {
 		std::cout << "glfwInit has encountered an error!" << std::endl;
 	}
-	this->pWindow = glfwCreateWindow((int) SCREEN_WIDTH, (int) SCREEN_HEIGHT, "PC01 - Lance Jervic Ong", NULL, NULL);
+	this->pWindow = glfwCreateWindow((int) SCREEN_WIDTH, (int) SCREEN_HEIGHT, "Quiz-Lance Jervic Ong", NULL, NULL);
 	glfwMakeContextCurrent(this->pWindow);
 	gladLoadGL();
 

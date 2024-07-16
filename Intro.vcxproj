@@ -146,6 +146,7 @@
     <ClCompile Include="InputManager\InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene\MainScene.cpp" />
+    <ClCompile Include="MainScene\Simulation.cpp" />
     <ClCompile Include="Model3D\Model3D.cpp" />
     <ClCompile Include="Model3D\ObjData\ObjData.cpp" />
     <ClCompile Include="Physics\Collision\ContactResolver.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="Controller\SimController\SimController.hpp" />
     <ClInclude Include="InputManager\InputManager.hpp" />
     <ClInclude Include="MainScene\MainScene.hpp" />
+    <ClInclude Include="MainScene\Simulation.hpp" />
     <ClInclude Include="Model3D\Model3D.hpp" />
     <ClInclude Include="Model3D\ObjData\ObjData.hpp" />
     <ClInclude Include="Physics\Collision\ContactResolver.hpp" />

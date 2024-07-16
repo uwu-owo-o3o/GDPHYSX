@@ -27,6 +27,7 @@
 #include "../Physics/Spring/ParticleSpring.hpp"
 
 #include "../Physics/Rod/Rod.hpp"
+#include "Simulation.hpp"
 
 namespace scene {
 	using namespace model;
@@ -38,7 +39,8 @@ namespace scene {
 	using namespace generator;
 	using namespace collision;
 	using namespace std::chrono_literals;
-	
+	using namespace quiz;
+
 	class MainScene {
 		private:
 			GLFWwindow* pWindow;

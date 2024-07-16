@@ -4,6 +4,8 @@
 #include "../Model3D/Model3D.hpp"
 #include "../Physics/Component/Particle/RenderParticle.hpp"
 #include "../Physics/Spring/AnchoredSpring.hpp"
+#include "../Physics/Spring/ParticleSpring.hpp"
+#include "../Physics/Rod/Rod.hpp"
 
 namespace quiz {
 	using namespace world;
