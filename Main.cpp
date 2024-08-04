@@ -55,20 +55,20 @@ int main(void)
 
 
   
-    auto cableLength = input.getLine<float>("Cable Length");
+    /*auto cableLength = input.getLine<float>("Cable Length");
     auto particleGap = input.getLine<float>("Particle Gap");
     auto particleRadius = input.getLine<float>("Particle Radius");
-    auto gravityStrength = input.getLine<float>("Gravity Strength");
+    auto gravityStrength = input.getLine<float>("Gravity Strength");*/
 
     
   
-    std::cout << "Apply Force" << std::endl;
+    /*std::cout << "Apply Force" << std::endl;
     pushForce.x = input.getLine<float>("x");
     pushForce.y = input.getLine<float>("y");
-    pushForce.z = input.getLine<float>("z");
+    pushForce.z = input.getLine<float>("z");*/
       
 
-    CableCreator* creator = new CableCreator(cableLength, particleGap, particleRadius, pushForce);
+    CableCreator* creator = new CableCreator();
 
     CableSet cableset = creator->createCables();
     //setCableCreatorParticles(m, &world, creator);
@@ -102,12 +102,15 @@ int main(void)
 
 
     World world = World();
-    world.gravity.Gravity = Vector3::down * gravityStrength;
+    world.gravity.Gravity = Vector3(0.0, -9.8, 0.0);
 
     std::vector<Model*> models;
+    
+    std::cout << "cable set particles list size: " << cableset.particles.size() << std::endl;
+    
     for (int i = 0; i < cableset.particles.size(); i++) {
         Model* m = new Model("3D/sphere.obj");
-        m->transform.scale = Vector3::one * 30.f;
+        m->transform.scale = Vector3::one * cableset.particles[i]->radius;
         m->assignShader(shader);
         m->setColor(Vector3(0.6f, 0, 0));
 
@@ -129,10 +132,10 @@ int main(void)
 
     std::vector<RenderLine> lines;
 
-    for (Cable* c : cableset.cables) {
+ /*   for (Cable* c : cableset.cables) {
         RenderLine line = RenderLine(c->particles[0]->position, c->particles[1]->position, Vector3::one);
         lines.push_back(line);
-    }
+    }*/
   
 
     constexpr std::chrono::nanoseconds timestep(16ms);
@@ -168,7 +171,7 @@ int main(void)
         { 
             //if (hasStarted) return;
 
-            creator->leftMost->AddForce(creator->forceToApply);
+            //creator->leftMost->AddForce(creator->forceToApply);
             hasStarted = true; 
         }
     };
