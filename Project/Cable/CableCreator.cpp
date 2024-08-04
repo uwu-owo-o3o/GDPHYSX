@@ -1,8 +1,7 @@
 #include "CableCreator.hpp"
 
 CableCreator::CableCreator() {
-	this->particleRadius = 5.0f;
-	this->particleGap = 50.0f;
+	this->particleRadius = 5.0f;	
 	this->circleDiameter = 80.0f;
 	this->cableLength = 15.0f;
 }
@@ -33,3 +32,17 @@ CableSet CableCreator::createCables() {
 	
 	return cableSet;
 }
+
+void CableCreator::raiseCables(CableSet* cableSet) {
+	for (int i = 0; i < cableSet->cables.size(); i++) {
+		while (cableSet->cables[i]->anchorPosition.y < 40) {
+			cableSet->cables[i]->anchorPosition.y += 1.0f;
+		}
+	}
+
+	/*for (int i = 0; i < cableSet->cables.size(); i++) {
+		std::cout << "i: " << i << " anchorPos y: " << cableSet->cables[i]->anchorPosition.y << std::endl;
+	}*/
+
+}
+

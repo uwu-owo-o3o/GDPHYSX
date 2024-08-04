@@ -168,14 +168,15 @@ int main(void)
 
 
     bool hasStarted = false;
-    //input[GLFW_KEY_SPACE]+= { GLFW_PRESS, [&hasStarted, &creator]() 
-    //    { 
-    //        //if (hasStarted) return;
-
-    //        creator->leftMost->AddForce(creator->forceToApply);
-    //        hasStarted = true; 
-    //    }
-    //};
+    input[GLFW_KEY_SPACE]+= { GLFW_PRESS, [&hasStarted, &creator, &cableset]() 
+        { 
+            if (hasStarted) return;
+            std::cout << "simulation started!" << std::endl;
+            creator->raiseCables(&cableset);
+            //creator->leftMost->AddForce(creator->forceToApply);
+            hasStarted = true; 
+        }
+    };
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -197,8 +198,13 @@ int main(void)
 
             float dT = (float)ms.count() / 1000;
 
-            if (!isPaused)
-                world.Update(dT);  
+            if (!isPaused) {
+                world.Update(dT);
+                if (!hasStarted) {
+                    
+                }
+            }
+                 
             
         } 
 
