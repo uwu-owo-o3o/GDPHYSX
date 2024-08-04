@@ -55,20 +55,24 @@ int main(void)
 
 
   
-    auto cableLength = input.getLine<float>("Cable Length");
-    auto particleGap = input.getLine<float>("Particle Gap");
-    auto particleRadius = input.getLine<float>("Particle Radius");
-    auto gravityStrength = input.getLine<float>("Gravity Strength");
+    //auto cableLength = input.getLine<float>("Cable Length");
+    //auto particleGap = input.getLine<float>("Particle Gap");
+    //auto particleRadius = input.getLine<float>("Particle Radius");
+    //auto gravityStrength = input.getLine<float>("Gravity Strength");
 
+    float cableLength = 15.0f;
+    float particleGap = 30.0f;
+    float particleRadius = 5.0f;
+    float gravityStrength = 9.80f;
     
-  
-    std::cout << "Apply Force" << std::endl;
-    pushForce.x = input.getLine<float>("x");
-    pushForce.y = input.getLine<float>("y");
-    pushForce.z = input.getLine<float>("z");
+    pushForce = Vector3(0, 0, 0);
+    //std::cout << "Apply Force" << std::endl;
+    //pushForce.x = input.getLine<float>("x");
+    //pushForce.y = input.getLine<float>("y");
+    //pushForce.z = input.getLine<float>("z");
       
 
-    CableCreator* creator = new CableCreator(cableLength, particleGap, particleRadius, pushForce);
+    CableCreator* creator = new CableCreator();
 
     CableSet cableset = creator->createCables();
     //setCableCreatorParticles(m, &world, creator);
@@ -164,14 +168,14 @@ int main(void)
 
 
     bool hasStarted = false;
-    input[GLFW_KEY_SPACE]+= { GLFW_PRESS, [&hasStarted, &creator]() 
-        { 
-            //if (hasStarted) return;
+    //input[GLFW_KEY_SPACE]+= { GLFW_PRESS, [&hasStarted, &creator]() 
+    //    { 
+    //        //if (hasStarted) return;
 
-            creator->leftMost->AddForce(creator->forceToApply);
-            hasStarted = true; 
-        }
-    };
+    //        creator->leftMost->AddForce(creator->forceToApply);
+    //        hasStarted = true; 
+    //    }
+    //};
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 

@@ -16,19 +16,21 @@ class CableCreator {
 
 private:
 	float cableLength;
+	float circleDiameter;
 	float particleGap;
 	float particleRadius;
 
 
 public:
-	Vector3 forceToApply;
+	//Vector3 forceToApply;
+	CableCreator();
 
 public:
 
-	Particle* leftMost = nullptr;
+	//Particle* leftMost = nullptr;
 
-	inline CableCreator(float cableLength, float particleGap, float particleRadius, Vector3 forceToApply):
-	cableLength(cableLength), particleGap(particleGap), particleRadius(particleRadius), forceToApply(forceToApply){}
+	/*inline CableCreator(float cableLength, float particleGap, float particleRadius, Vector3 forceToApply):
+	cableLength(cableLength), particleGap(particleGap), particleRadius(particleRadius), forceToApply(forceToApply){}*/
 
 
 

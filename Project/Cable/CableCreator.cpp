@@ -1,51 +1,35 @@
 #include "CableCreator.hpp"
 
+CableCreator::CableCreator() {
+	this->particleRadius = 5.0f;
+	this->particleGap = 50.0f;
+	this->circleDiameter = 80.0f;
+	this->cableLength = 15.0f;
+}
 CableSet CableCreator::createCables() {
 
-
 	CableSet cableSet; 
+	int total_spheres = 8;
 
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < total_spheres; i++) {
 		
 		Particle* particle = new Particle();
-		particle->mass = 15.0f;
-		particle->lifeSpan = 100.0f;
+		particle->mass = 60.0f;
 		particle->radius = this->particleRadius;
-		
-		int x_offset = this->setXOffset(i);
-		particle->setPosition(Vector3(x_offset, 100, 0));
+		particle->lifeSpan = 100.0f;
 
-		
+		float angle_split = ( 3.14 * 45.0f * i) / 180.0f;
+		float x = ( (this->circleDiameter / 2) * cos(angle_split) );
+		float z = ( (this->circleDiameter / 2) * sin(angle_split) );
+		float y = 0;
 
-		Cable* cable = new Cable(particle->position + Vector3::up * 100, particle, cableLength);
+		particle->setPosition(Vector3(x, y, z));
 
-		cableSet.cables.push_back(cable);
+		Cable* cable = new Cable(particle->position + Vector3::up * 0.0f, particle, cableLength);
 		cableSet.particles.push_back(particle);
+		cableSet.cables.push_back(cable);
 
 	}
-
-	leftMost = cableSet.particles[3];
+	
 	return cableSet;
-}
-
-int CableCreator::setXOffset(int i) {
-	int x_offset = 0;
-	switch (i) {
-		case 0:
-			x_offset = 0;
-			break;
-		case 1:
-			x_offset = 0 - ((this->particleRadius) + this->particleGap);
-			break;
-		case 2:
-			x_offset = 0 + ((this->particleRadius) + this->particleGap);
-			break;
-		case 3:
-			x_offset = 0 - ((this->particleRadius * 2) +  (this->particleGap * 2));
-			break;
-		case 4:
-			x_offset = 0 + ((this->particleRadius * 2) + (this->particleGap * 2));
-			break;
-	}
-	return x_offset;
 }
