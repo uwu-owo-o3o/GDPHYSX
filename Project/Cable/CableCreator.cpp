@@ -8,7 +8,7 @@ CableCreator::CableCreator() {
 CableSet CableCreator::createCables() {
 
 	CableSet cableSet; 
-	int total_spheres = 8;
+	int total_spheres = 1;
 
 	for (int i = 0; i < total_spheres; i++) {
 		
@@ -23,10 +23,11 @@ CableSet CableCreator::createCables() {
 		float y = 0;
 
 		particle->setPosition(Vector3(x, y, z));
-
+		
 		Cable* cable = new Cable(particle->position + Vector3::up * 0.0f, particle, cableLength);
 		cableSet.particles.push_back(particle);
 		cableSet.cables.push_back(cable);
+
 
 	}
 	
@@ -46,3 +47,27 @@ void CableCreator::raiseCables(CableSet* cableSet) {
 
 }
 
+void CableCreator::rotateCables(CableSet* cableSet) {
+	this->forceToPutOnPoint+= this->forceToPutOnPoint;
+	std::cout << "forceToPutOnPoint: " << this->forceToPutOnPoint << std::endl;
+	Vector3 force_at_pt = Vector3(0, 1, 0) * this->forceToPutOnPoint;
+	for (int i = 0; i < cableSet->particles.size(); i++) {
+		
+		cableSet->particles[i]->AddForceAtPoint(force_at_pt, cableSet->particles[i]->position);
+	}
+}
+
+void CableCreator::increaseCableLength(CableSet* cableSet) {
+	for (int i = 0; i < cableSet->cables.size(); i++) {
+		cableSet->cables[i]->cableLength++;
+	}
+}
+
+void CableCreator::decreaseCableLength(CableSet* cableSet) {
+	for (int i = 0; i < cableSet->cables.size(); i++) {
+		if (cableSet->cables[i]->cableLength > 0) {
+			cableSet->cables[i]->cableLength--;
+		}
+		
+	}
+}

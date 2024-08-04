@@ -159,6 +159,9 @@ int main(void)
     float y = 0;
     float step = 0.1f;
 
+    input[GLFW_KEY_UP] += {GLFW_REPEAT, [&creator, &cableset] { creator->decreaseCableLength(&cableset); }};
+    input[GLFW_KEY_DOWN] += {GLFW_REPEAT, [&creator, &cableset] { creator->increaseCableLength(&cableset); }};
+
     input[GLFW_KEY_W] += { GLFW_REPEAT, [&x, step]() { x += step; }};
     input[GLFW_KEY_S] += { GLFW_REPEAT, [&x, step]() { x -= step; }};
 
@@ -200,8 +203,9 @@ int main(void)
 
             if (!isPaused) {
                 world.Update(dT);
-                if (!hasStarted) {
-                    
+                if (hasStarted) {
+                    //std::cout << "attempt to rotate" << std::endl;
+                    //creator->rotateCables(&cableset);
                 }
             }
                  

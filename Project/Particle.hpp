@@ -19,8 +19,17 @@ class Particle {
 		float radius = 50.f;
 		float restitution = 1.f;
 
+	public:
+		glm::mat4 Rotation = glm::mat4(1.0f);
+		Vector3 AngularVelocity = Vector3(0.0f, 0.0f, 0.0f);
+		float AngularDamping = 0.9f;
+		void AddForceAtPoint(Vector3 force, Vector3 particle);
 
 	public:
+		Vector3 accumulatedTorque = Vector3(0, 0, 0);
+		virtual float MomentOfInertia();
+	
+public:
 		Vector3 accumulatedForce = Vector3::zero;
 		
 

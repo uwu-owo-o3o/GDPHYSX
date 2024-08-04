@@ -18,6 +18,7 @@ private:
 	float cableLength;
 	float circleDiameter;
 	float particleRadius;
+	float forceToPutOnPoint =  1.0f;
 
 
 public:	
@@ -26,6 +27,8 @@ public:
 public:
 	CableSet createCables();
 	void raiseCables(CableSet* cableSet);
-	
-
+	void rotateCables(CableSet* cableSet);
+	void increaseCableLength(CableSet* cableSet);
+	void decreaseCableLength(CableSet* cableSet);
+		
 };
