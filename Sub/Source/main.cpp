@@ -35,44 +35,16 @@
 #include "config.hpp"
 
 #include "Project/Link/Rod.hpp"
-
-#include "Project/Link/Cable.hpp"
-#include "Project/Cable/CableCreator.hpp"
+#include "Project/Link/ChainLink.hpp"
+#include "Project/Link/BungeeLink.hpp"
 
 using namespace managers;
 using namespace std::chrono_literals;
 
 
 
-
 int main(void)
 {   
-
-          
-    Input& input = *Input::getInstance();
-    Vector3 pushForce;
-
-
-
-  
-    auto cableLength = input.getLine<float>("Cable Length");
-    auto particleGap = input.getLine<float>("Particle Gap");
-    auto particleRadius = input.getLine<float>("Particle Radius");
-    auto gravityStrength = input.getLine<float>("Gravity Strength");
-
-    
-  
-    std::cout << "Apply Force" << std::endl;
-    pushForce.x = input.getLine<float>("x");
-    pushForce.y = input.getLine<float>("y");
-    pushForce.z = input.getLine<float>("z");
-      
-
-    CableCreator* creator = new CableCreator(cableLength, particleGap, particleRadius, pushForce);
-
-    CableSet cableset = creator->createCables();
-    //setCableCreatorParticles(m, &world, creator);
-
 
     GLFWwindow* window;
     srand(time(0));
@@ -80,7 +52,7 @@ int main(void)
     if (!glfwInit())
         return -1;
 
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Phase 2 - Lance Ong, Nico Tolentino", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Quiz John Enrico Tolentino", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -101,39 +73,53 @@ int main(void)
     CameraManager::initializeCameras(shader);
 
 
+
     World world = World();
-    world.gravity.Gravity = Vector3::down * gravityStrength;
 
-    std::vector<Model*> models;
-    for (int i = 0; i < cableset.particles.size(); i++) {
-        Model* m = new Model("3D/sphere.obj");
-        m->transform.scale = Vector3::one * 30.f;
-        m->assignShader(shader);
-        m->setColor(Vector3(0.6f, 0, 0));
+    Model* m = new Model("3D/sphere.obj");
+    m->assignShader(shader);
+    m->transform.scale = Vector3::one * 30.f;
 
-        models.push_back(m);
-    }
+    Particle *p = new Particle();
+    p->lifeSpan = 100;
+  
 
+    m->setColor(Vector3(0.6f,0,0));
+
+    p->radius = 20;
+    RenderParticle* p1 = new RenderParticle("p1", m, p);
+    p1->particle->mass = 5;
+
+    world.AddParticle(p1);
+
+  
+    Model* m2 = new Model(*m);
+    m2->setColor(Vector3(0, 0, 0.6f));
+
+    Particle* pp = new Particle(*p);
+    pp->position = (Vector3::up + Vector3::right) * 100;
+    pp->radius = 50;
+    
+    RenderParticle* p2 = new RenderParticle("p2", m2, pp);
+    p2->particle->mass = 50;
+
+    world.AddParticle(p2);
+
+    /*
+
+    ParticleSpring pSpring = ParticleSpring(pp, 5.f, 1.f);
+
+    world.forceRegistry.Add(p, &pSpring);
+
+    ParticleSpring pSpring2 = ParticleSpring(p, 5.f, 1.f);
+
+    world.forceRegistry.Add(pp, &pSpring2);
+
+    */
 
   
 
-    for (int i = 0; i < cableset.particles.size(); i++) {
-        RenderParticle* rp = new RenderParticle("rp" + std::to_string(i), models[i], cableset.particles[i]);
-        world.AddParticle(rp);
-    }
-
-    for (int i = 0; i < cableset.cables.size(); i++) {
-        world.linkList.push_back(cableset.cables[i]);
-    }
- 
-
-    std::vector<RenderLine> lines;
-
-    for (Cable* c : cableset.cables) {
-        RenderLine line = RenderLine(c->particles[0]->position, c->particles[1]->position, Vector3::one);
-        lines.push_back(line);
-    }
-  
+    //might try to make a time singleton to handle this
 
     constexpr std::chrono::nanoseconds timestep(16ms);
     using clock = std::chrono::high_resolution_clock;
@@ -143,10 +129,28 @@ int main(void)
 
     std::chrono::nanoseconds curr_ns(0);
 
+    Vector3 anchorpoint1 = Vector3::left * 150 + Vector3::up * 200;
+    Vector3 anchorpoint2 = Vector3::right * 150 + Vector3::up * 200;
+
+    BungeeLink bungee = BungeeLink(anchorpoint1, 100, 20);
+    ChainLink chain = ChainLink(anchorpoint2, p2->particle, 200);
+
+    p->position = anchorpoint1 + Vector3::down * 100;
+    pp->position = anchorpoint2;
+
+    world.forceRegistry.Add(p1->particle, &bungee);
+    world.forceRegistry.Add(p2->particle, &chain);
+
+    RenderLine line = RenderLine(p2->particle->position, anchorpoint2, Vector3::one);
+   
+    RenderLine line2 = RenderLine(p1->particle->position, anchorpoint1, Vector3::one);
+
     #pragma region inputs
 
     bool isPaused = false;
-    input[GLFW_KEY_ENTER] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
+    Input& input = *Input::getInstance();
+
+    input[GLFW_KEY_SPACE] += { GLFW_PRESS, [&isPaused]() {isPaused = !isPaused;} };
     input[GLFW_KEY_1] += { GLFW_PRESS, []() { CameraManager::switchToOrtho(); }};
     input[GLFW_KEY_2] += { GLFW_PRESS, []() { CameraManager::switchToPerspective(); }};
 
@@ -161,17 +165,6 @@ int main(void)
     input[GLFW_KEY_D] += { GLFW_REPEAT, [&y, step]() { y += step; }};
     input[GLFW_KEY_A] += { GLFW_REPEAT, [&y, step]() { y -= step; }};
     input[GLFW_KEY_BACKSPACE] += {GLFW_PRESS, [&x, &y] {x = 0; y=0;}};
-
-
-    bool hasStarted = false;
-    input[GLFW_KEY_SPACE]+= { GLFW_PRESS, [&hasStarted, &creator]() 
-        { 
-            //if (hasStarted) return;
-
-            creator->leftMost->AddForce(creator->forceToApply);
-            hasStarted = true; 
-        }
-    };
 
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -193,27 +186,26 @@ int main(void)
 
             float dT = (float)ms.count() / 1000;
 
-            if (!isPaused)
-                world.Update(dT);  
+            if (!isPaused){
+                world.Update(dT);
+                //contact.resolve(dT);
+            }
+                
             
         } 
-
-        
-        for (int i = 0; i < lines.size(); i++) {
-
-            Vector3 p1 = cableset.cables[i]->particles[0]->position;
-            Vector3 p2 = cableset.cables[i]->particles[1]->position;
-
-            lines[i].Update(p1 ,p2, CameraManager::getMain()->worldProjection);
-            lines[i].Draw();
-        }
- 
        
+        line.Update(p2->particle->position, anchorpoint2, CameraManager::getMain()->worldProjection);
+        line2.Update(p1->particle->position, anchorpoint1, CameraManager::getMain()->worldProjection);
+       
+
 
         world.Draw();
 
         CameraManager::DoOnAllCameras([x, y](Camera* camera) { camera->setRotation(Vector3(x, y, 0)); });
         CameraManager::getMain()->Draw();
+
+        line.Draw();
+        line2.Draw();
 
 
         glfwSwapBuffers(window);
