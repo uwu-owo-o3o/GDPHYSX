@@ -113,13 +113,9 @@ int main(void)
         Model* m = new Model("3D/sphere.obj");
         m->transform.scale = Vector3::one * 30.f;
         m->assignShader(shader);
-        m->setColor(Vector3(0.6f, 0, 0));
-
+        m->setColor(Vector3(1.f, 0, 0));      
         models.push_back(m);
     }
-
-
-  
 
     for (int i = 0; i < cableset.particles.size(); i++) {
         RenderParticle* rp = new RenderParticle("rp" + std::to_string(i), models[i], cableset.particles[i]);
@@ -161,6 +157,9 @@ int main(void)
 
     input[GLFW_KEY_UP] += {GLFW_REPEAT, [&creator, &cableset] { creator->decreaseCableLength(&cableset); }};
     input[GLFW_KEY_DOWN] += {GLFW_REPEAT, [&creator, &cableset] { creator->increaseCableLength(&cableset); }};
+    
+    input[GLFW_KEY_LEFT] += {GLFW_REPEAT, [&creator] { creator->decreaseRotateMultiplier(); }};
+    input[GLFW_KEY_RIGHT] += {GLFW_REPEAT, [&creator] { creator->increaseRotateMultiplier(); }};
 
     input[GLFW_KEY_W] += { GLFW_REPEAT, [&x, step]() { x += step; }};
     input[GLFW_KEY_S] += { GLFW_REPEAT, [&x, step]() { x -= step; }};
@@ -205,7 +204,7 @@ int main(void)
                 world.Update(dT);
                 if (hasStarted) {
                     //std::cout << "attempt to rotate" << std::endl;
-                    //creator->rotateCables(&cableset);
+                    creator->rotateCables(&cableset, dT);
                 }
             }
                  

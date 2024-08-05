@@ -10,7 +10,7 @@ void Particle::UpdatePosition(float deltaTime) {
 
 	Vector3 MagDir = angularV;
 	if (angleMag != 0) {
-		glm::quat rotBy = glm::rotate(glm::mat4(1.0f), angleMag, (glm::vec3)MagDir);
+		glm::quat rotBy = glm::rotate(glm::mat4(1.f), angleMag, (glm::vec3)MagDir);
 		this->Rotation = glm::toMat4(glm::toQuat(this->Rotation) * rotBy);
 	}
 }
